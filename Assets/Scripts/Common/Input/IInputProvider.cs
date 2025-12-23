@@ -1,9 +1,10 @@
+using System;
 using UnityEngine;
 
 namespace Common.Input
 {
     /// <summary>
-    /// Provides input data for character movement.
+    /// Provides raw input data.
     /// </summary>
     public interface IInputProvider
     {
@@ -11,5 +12,10 @@ namespace Common.Input
         /// Gets the current movement direction.
         /// </summary>
         Vector2 MoveDirection { get; }
+
+        /// <summary>
+        /// Raised when jump input is performed.
+        /// </summary>
+        event Action JumpPerformed;
     }
 }

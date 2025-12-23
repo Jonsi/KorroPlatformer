@@ -5,14 +5,13 @@ using UnityEngine;
 
 namespace KorroPlatformer.Character.States
 {
-    public class WalkState : IState
+    public class JumpState : IState
     {
         private readonly IInputProvider _InputProvider;
         private readonly IPlayerMovement _PlayerMovement;
         private readonly PlayerStateMachine _StateMachine;
-        private bool _JumpRequested;
 
-        public WalkState(IInputProvider inputProvider, IPlayerMovement playerMovement, PlayerStateMachine stateMachine)
+        public JumpState(IInputProvider inputProvider, IPlayerMovement playerMovement, PlayerStateMachine stateMachine)
         {
             _InputProvider = inputProvider;
             _PlayerMovement = playerMovement;
@@ -21,24 +20,22 @@ namespace KorroPlatformer.Character.States
 
         public void Enter()
         {
-            _JumpRequested = false;
-            _InputProvider.JumpPerformed += OnJump;
+            if (_PlayerMovement.IsGrounded)
+                _PlayerMovement.Jump();
         }
 
-        public void Exit() => _InputProvider.JumpPerformed -= OnJump;
+        public void Exit() { }
 
         public IState Update()
         {
             _PlayerMovement.MoveDirection = _InputProvider.MoveDirection;
 
-            if (_JumpRequested || !_PlayerMovement.IsGrounded)
-            { 
-                return _StateMachine.JumpState;
+            if (_PlayerMovement.IsGrounded)
+            {
+                return _InputProvider.MoveDirection == Vector2.zero ? _StateMachine.IdleState : _StateMachine.WalkState;
             }
             
-            return _InputProvider.MoveDirection == Vector2.zero ? _StateMachine.IdleState : null;
+            return null;
         }
-
-        private void OnJump() => _JumpRequested = true;
     }
 }

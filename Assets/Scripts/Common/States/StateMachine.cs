@@ -31,8 +31,8 @@ namespace Common.States
             if (Current == null)
                 return;
 
-            var nextState = Current.Update();
-            if (nextState != null && nextState != Current)
+            IState nextState = Current.Update();
+            if (nextState != null)
             {
                 SetState(nextState);
             }

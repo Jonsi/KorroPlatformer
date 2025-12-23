@@ -1,6 +1,3 @@
-using System;
-using Common;
-using Common.Input;
 using Common.MVP;
 using Common.Update;
 using KorroPlatformer.Character.States;
@@ -13,7 +10,6 @@ namespace KorroPlatformer.Character.MVP
     public class PlayerPresenter : IPresenter<PlayerView, PlayerModel>, IUpdatable
     {
         private readonly PlayerStateMachine _StateMachine;
-        private readonly IInputProvider _InputProvider;
         private readonly UpdateManager _UpdateManager;
 
         /// <summary>
@@ -32,29 +28,19 @@ namespace KorroPlatformer.Character.MVP
         /// <param name="view">The player view.</param>
         /// <param name="model">The player model.</param>
         /// <param name="stateMachine">State machine controlling player states.</param>
-        /// <param name="inputProvider">Input provider for player movement.</param>
         /// <param name="updateManager">Manager used to register for updates.</param>
         public PlayerPresenter(
             PlayerView view,
             PlayerModel model,
             PlayerStateMachine stateMachine,
-            IInputProvider inputProvider,
             UpdateManager updateManager)
         {
             View = view;
             Model = model;
             _StateMachine = stateMachine;
-            _InputProvider = inputProvider;
             _UpdateManager = updateManager;
             
             _UpdateManager.Register(this);
-        }
-
-        /// <summary>
-        /// Initializes the player by setting the starting state.
-        /// </summary>
-        public void Initialize()
-        {
             _StateMachine.SetState(_StateMachine.IdleState);
         }
 
@@ -67,16 +53,11 @@ namespace KorroPlatformer.Character.MVP
         }
 
         /// <summary>
-        /// Unregisters updates and disposes owned resources.
+        /// Unregisters from the update manager.
         /// </summary>
         public void Dispose()
         {
             _UpdateManager.Unregister(this);
-            
-            if (_InputProvider is IDisposable disposableInput)
-            {
-                disposableInput.Dispose();
-            }
         }
     }
 }

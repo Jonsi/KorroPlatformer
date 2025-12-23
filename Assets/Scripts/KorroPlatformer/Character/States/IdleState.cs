@@ -1,46 +1,47 @@
 using Common.Input;
 using Common.States;
+using KorroPlatformer.Character.MVP;
+using UnityEngine;
 
 namespace KorroPlatformer.Character.States
 {
-    /// <summary>
-    /// Represents the player idling with no movement input.
-    /// </summary>
     public class IdleState : IState
     {
         private readonly IInputProvider _InputProvider;
-        
-        /// <summary>
-        /// Gets or sets the owning state machine.
-        /// </summary>
-        public PlayerStateMachine StateMachine { get; set; }
+        private readonly IPlayerMovement _PlayerMovement;
+        private readonly PlayerStateMachine _StateMachine;
+        private bool _JumpRequested;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="IdleState"/> class.
-        /// </summary>
-        /// <param name="inputProvider">Input provider supplying movement direction.</param>
-        public IdleState(IInputProvider inputProvider)
+        public IdleState(IInputProvider inputProvider, IPlayerMovement playerMovement, PlayerStateMachine stateMachine)
         {
             _InputProvider = inputProvider;
+            _PlayerMovement = playerMovement;
+            _StateMachine = stateMachine;
         }
 
-        /// <summary>
-        /// Called when entering the idle state.
-        /// </summary>
-        public void Enter() { }
+        public void Enter()
+        {
+            _JumpRequested = false;
+            _InputProvider.JumpPerformed += OnJump;
+        }
 
-        /// <summary>
-        /// Called when exiting the idle state.
-        /// </summary>
-        public void Exit() { }
+        public void Exit()
+        {
+            _InputProvider.JumpPerformed -= OnJump;
+        }
 
-        /// <summary>
-        /// Checks for movement input and transitions when necessary.
-        /// </summary>
-        /// <returns>The next state, or null to remain idle.</returns>
         public IState Update()
         {
-            return _InputProvider.MoveDirection != UnityEngine.Vector2.zero ? StateMachine.WalkState : null;
+            _PlayerMovement.MoveDirection = Vector2.zero;
+
+            if (_JumpRequested || !_PlayerMovement.IsGrounded)
+            {
+                return _StateMachine.JumpState;
+            }
+
+            return _InputProvider.MoveDirection != Vector2.zero ? _StateMachine.WalkState : null;
         }
+
+        private void OnJump() => _JumpRequested = true;
     }
 }

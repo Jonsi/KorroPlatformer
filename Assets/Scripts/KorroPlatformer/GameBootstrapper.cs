@@ -1,5 +1,8 @@
+using Common.Input;
+using Common.Update;
 using KorroPlatformer.Character.MVP;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace KorroPlatformer
 {
@@ -8,21 +11,34 @@ namespace KorroPlatformer
     /// </summary>
     public class GameBootstrapper : MonoBehaviour
     {
-        [SerializeField] private PlayerFactory _playerFactory;
-        [SerializeField] private PlayerView _playerPrefab;
-        [SerializeField] private Transform _spawnPoint;
+        [SerializeField] private UpdateManager _UpdateManager;
+        [SerializeField] private PlayerConfiguration _PlayerConfiguration;
+        [SerializeField] private PlayerView _PlayerPrefab;
+        [SerializeField] private Transform _SpawnPoint;
+        [SerializeField] private InputActionReference _MoveAction;
+        [SerializeField] private InputActionReference _JumpAction;
 
-        private PlayerPresenter _playerPresenter;
+        private PlayerPresenter _PlayerPresenter;
+        private PCInputProvider _InputProvider;
 
         private void Start()
         {
-            _playerPresenter = _playerFactory.Create(_playerPrefab, new PlayerModel(), _spawnPoint);
+            _InputProvider = CreateInputProvider();
+            PlayerFactory factory = new PlayerFactory(_UpdateManager, _InputProvider, _PlayerConfiguration);
+            _PlayerPresenter = factory.Create(_PlayerPrefab, _SpawnPoint);
         }
 
         private void OnDestroy()
         {
-            _playerPresenter?.Dispose();
+            _PlayerPresenter?.Dispose();
+            _InputProvider?.Dispose();
+        }
+
+        private PCInputProvider CreateInputProvider()
+        {
+            InputAction moveAction = _MoveAction != null ? _MoveAction.action : new InputAction();
+            InputAction jumpAction = _JumpAction != null ? _JumpAction.action : new InputAction();
+            return new PCInputProvider(moveAction, jumpAction);
         }
     }
 }
-

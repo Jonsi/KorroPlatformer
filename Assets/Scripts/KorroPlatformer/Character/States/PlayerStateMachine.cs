@@ -1,3 +1,4 @@
+using System;
 using Common.States;
 
 namespace KorroPlatformer.Character.States
@@ -18,14 +19,21 @@ namespace KorroPlatformer.Character.States
         public WalkState WalkState { get; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PlayerStateMachine"/> class.
+        /// Gets the jump state instance.
         /// </summary>
-        /// <param name="idleState">The idle state instance.</param>
-        /// <param name="walkState">The walk state instance.</param>
-        public PlayerStateMachine(IdleState idleState, WalkState walkState)
+        public JumpState JumpState { get; }
+
+        /// <summary>
+        /// Creates the state machine and its states.
+        /// </summary>
+        public PlayerStateMachine(
+            Func<PlayerStateMachine, IdleState> createIdleState,
+            Func<PlayerStateMachine, WalkState> createWalkState,
+            Func<PlayerStateMachine, JumpState> createJumpState)
         {
-            IdleState = idleState;
-            WalkState = walkState;
+            IdleState = createIdleState(this);
+            WalkState = createWalkState(this);
+            JumpState = createJumpState(this);
         }
     }
 }

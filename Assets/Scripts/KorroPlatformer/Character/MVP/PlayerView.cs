@@ -1,63 +1,51 @@
 ﻿using Common;
 using Common.MVP;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace KorroPlatformer.Character.MVP
 {
-    /// <summary>
-    /// Represents the player in the scene and executes movement.
-    /// </summary>
     public class PlayerView : MonoBehaviour, IView<PlayerModel>, IPlayerMovement
     {
         [SerializeField] private CharacterController _CharacterController;
-        [SerializeField] private InputActionReference _MoveAction;
 
-        /// <summary>
-        /// Gets the input action reference used for movement.
-        /// </summary>
-        public InputActionReference MoveAction => _MoveAction;
+        private PlayerConfiguration _Config;
+        private PlayerModel _Model;
+        private float _VerticalVelocity;
 
-        /// <summary>
-        /// Initializes the view with the specified model.
-        /// </summary>
-        /// <param name="model">The player model to initialize the view with.</param>
-        public void Initialize(PlayerModel model)
+        public bool IsGrounded => _CharacterController.isGrounded;
+        public Vector2 MoveDirection { get; set; }
+
+        public void Initialize(PlayerConfiguration config, PlayerModel model)
         {
+            _Config = config;
+            _Model = model;
         }
 
-        /// <summary>
-        /// Shows the view.
-        /// </summary>
-        /// <returns>An awaitable representing the show operation.</returns>
+        void IView<PlayerModel>.Initialize(PlayerModel model) => _Model = model;
+
         public Awaitable Show()
         {
             gameObject.SetActive(true);
             return AwaitableUtility.Completed();
         }
 
-        /// <summary>
-        /// Hides the view.
-        /// </summary>
-        /// <returns>An awaitable representing the hide operation.</returns>
         public Awaitable Hide()
         {
             gameObject.SetActive(false);
             return AwaitableUtility.Completed();
         }
 
-        /// <summary>
-        /// Moves the character controller by the given direction.
-        /// </summary>
-        /// <param name="direction">World-space movement vector.</param>
-        public void Move(Vector3 direction)
-        {
-            _CharacterController.Move(direction);
-        }
+        public void Jump() => _VerticalVelocity = _Config.JumpForce;
 
-        /// <summary>
-        /// Gets a value indicating whether the character controller is grounded.
-        /// </summary>
-        public bool IsGrounded => _CharacterController.isGrounded;
+        private void Update()
+        {
+            if (IsGrounded && _VerticalVelocity < 0f)
+                _VerticalVelocity = -1f;
+            else
+                _VerticalVelocity += _Config.Gravity * Time.deltaTime;
+
+            Vector3 move = new Vector3(MoveDirection.x * _Config.MoveSpeed, _VerticalVelocity, MoveDirection.y * _Config.MoveSpeed);
+            _CharacterController.Move(move * Time.deltaTime);
+        }
     }
 }
