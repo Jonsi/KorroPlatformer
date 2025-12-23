@@ -1,34 +1,31 @@
-using UnityEngine;
+using Common.Update;
 
 namespace Common.States
 {
-    /// <summary>
-    /// Simple state machine
-    /// </summary>
-    public abstract class StateMachine
+    public abstract class StateMachine : IUpdatable
     {
-        /// <summary>
-        /// Gets the current active state.
-        /// </summary>
-        public IState Current => CurrentState;
+        private IState Current { get; set; }
 
-        protected IState CurrentState { get; private set; }
-
-        /// <summary>
-        /// Switches to the provided state, invoking exit/enter as needed.
-        /// </summary>
-        /// <param name="newState">Target state instance.</param>
-        public async Awaitable SetState(IState newState)
+        public void SetState(IState newState)
         {
-            if (newState == null || CurrentState == newState)
-            {
+            if (newState == null || Current == newState)
                 return;
-            }
 
-            await CurrentState?.Exit()!;
-            CurrentState = newState;
-            await CurrentState.Enter();
+            Current?.Exit();
+            Current = newState;
+            Current.Enter();
+        }
+
+        public void Update()
+        {
+            if (Current == null)
+                return;
+
+            var nextState = Current.Update();
+            if (nextState != null && nextState != Current)
+            {
+                SetState(nextState);
+            }
         }
     }
 }
-
