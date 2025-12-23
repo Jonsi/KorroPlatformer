@@ -433,6 +433,9 @@ MonoBehaviour:
   _SpawnPoint: {fileID: 1065065963}
   _MoveAction: {fileID: -1680190386980627800, guid: 289c1b55c9541489481df5cc06664110, type: 3}
   _JumpAction: {fileID: -2099379676528639254, guid: 289c1b55c9541489481df5cc06664110, type: 3}
+  _HealthChangedEvent: {fileID: 11400000, guid: ae241446143f37e408316b69fa88e347, type: 2}
+  _PlayerDiedEvent: {fileID: 11400000, guid: 11f44b713b7e1e441a745d13c46e8497, type: 2}
+  _HitEvent: {fileID: 11400000, guid: 9e2c444fc5e2a074e8b4bbea293e6677, type: 2}
 --- !u!1 &1424232007
 GameObject:
   m_ObjectHideFlags: 0

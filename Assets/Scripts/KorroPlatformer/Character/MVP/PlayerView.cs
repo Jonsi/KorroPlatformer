@@ -1,12 +1,14 @@
 ﻿using Common;
+using Common.Events;
 using Common.MVP;
 using UnityEngine;
 
 namespace KorroPlatformer.Character.MVP
 {
-    public class PlayerView : MonoBehaviour, IView<PlayerModel>, IPlayerMovement
+    public class PlayerView : MonoBehaviour, IView<PlayerModel>, IPlayerMovement, IHitable
     {
         [SerializeField] private CharacterController _CharacterController;
+        [SerializeField] private IntEventChannel _HitEvent;
 
         private PlayerConfiguration _Config;
         private PlayerModel _Model;
@@ -36,6 +38,15 @@ namespace KorroPlatformer.Character.MVP
         }
 
         public void Jump() => _VerticalVelocity = _Config.JumpForce;
+
+        public void TakeDamage(int damage)
+        {
+            if (_HitEvent != null)
+            {
+                _HitEvent.Raise(damage);
+                Debug.Log("hit " + damage);
+            }
+        }
 
         private void Update()
         {

@@ -1,5 +1,6 @@
 using System;
 using Common.States;
+using UnityEngine;
 
 namespace KorroPlatformer.Character.States
 {
@@ -24,16 +25,49 @@ namespace KorroPlatformer.Character.States
         public JumpState JumpState { get; }
 
         /// <summary>
-        /// Creates the state machine and its states.
+        /// Gets the hit state instance.
+        /// </summary>
+        public HitState HitState { get; }
+
+        /// <summary>
+        /// Gets the death state instance.
+        /// </summary>
+        public DeathState DeathState { get; }
+
+        /// <summary>
+        /// Creates the state machine and initializes its states.
         /// </summary>
         public PlayerStateMachine(
-            Func<PlayerStateMachine, IdleState> createIdleState,
-            Func<PlayerStateMachine, WalkState> createWalkState,
-            Func<PlayerStateMachine, JumpState> createJumpState)
+            IdleState idleState,
+            WalkState walkState,
+            JumpState jumpState,
+            HitState hitState,
+            DeathState deathState)
         {
-            IdleState = createIdleState(this);
-            WalkState = createWalkState(this);
-            JumpState = createJumpState(this);
+            IdleState = idleState;
+            WalkState = walkState;
+            JumpState = jumpState;
+            HitState = hitState;
+            DeathState = deathState;
+
+            IdleState.Initialize(this);
+            WalkState.Initialize(this);
+            JumpState.Initialize(this);
+            HitState.Initialize(this);
+            // DeathState doesn't need references to other states to transition
+        }
+
+        public override void SetState(IState newState)
+        {
+            if (newState == null || CurrentState == newState)
+                return;
+
+            string oldStateName = CurrentState?.GetType().Name ?? "None";
+            string newStateName = newState.GetType().Name;
+            
+            Debug.Log($"[PlayerStateMachine] Transitioning from {oldStateName} to {newStateName}");
+
+            base.SetState(newState);
         }
     }
 }

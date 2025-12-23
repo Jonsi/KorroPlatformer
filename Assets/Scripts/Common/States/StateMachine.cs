@@ -7,20 +7,20 @@ namespace Common.States
     /// </summary>
     public abstract class StateMachine : IUpdatable
     {
-        private IState Current { get; set; }
+        public IState CurrentState { get; private set; }
 
         /// <summary>
         /// Sets the current state to a new state instance.
         /// </summary>
         /// <param name="newState">The state to transition to.</param>
-        public void SetState(IState newState)
+        public virtual void SetState(IState newState)
         {
-            if (newState == null || Current == newState)
+            if (newState == null || CurrentState == newState)
                 return;
 
-            Current?.Exit();
-            Current = newState;
-            Current.Enter();
+            CurrentState?.Exit();
+            CurrentState = newState;
+            CurrentState.Enter();
         }
 
         /// <summary>
@@ -28,10 +28,10 @@ namespace Common.States
         /// </summary>
         public void Update()
         {
-            if (Current == null)
+            if (CurrentState == null)
                 return;
 
-            IState nextState = Current.Update();
+            IState nextState = CurrentState.Update();
             if (nextState != null)
             {
                 SetState(nextState);

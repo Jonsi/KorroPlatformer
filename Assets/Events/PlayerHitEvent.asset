@@ -9,11 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ed933068596c584790f4f94eccb7ede, type: 3}
-  m_Name: PlayerConfiguration
+  m_Script: {fileID: 11500000, guid: 8bd6366c9b05393478f2a6783bbcc4c4, type: 3}
+  m_Name: PlayerHitEvent
   m_EditorClassIdentifier: 
-  <MoveSpeed>k__BackingField: 5
-  <JumpForce>k__BackingField: 10
-  <Gravity>k__BackingField: -30
-  <MaxHealth>k__BackingField: 3
-  <HitDuration>k__BackingField: 0

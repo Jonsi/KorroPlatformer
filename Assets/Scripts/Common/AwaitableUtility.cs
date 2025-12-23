@@ -15,14 +15,14 @@ namespace Common
 
         private static class CompletedAwaitable
         {
-            private static readonly AwaitableCompletionSource s_completionSource = new();
+            private static readonly AwaitableCompletionSource SCompletionSource = new();
 
             static CompletedAwaitable()
             {
-                s_completionSource.SetResult();
+                SCompletionSource.SetResult();
             }
 
-            public static Awaitable Instance => s_completionSource.Awaitable;
+            public static Awaitable Instance => SCompletionSource.Awaitable;
         }
     }
 }

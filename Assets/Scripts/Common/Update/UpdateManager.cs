@@ -8,13 +8,13 @@ namespace Common.Update
     /// </summary>
     public class UpdateManager : MonoBehaviour
     {
-        private readonly List<IUpdatable> _updatables = new List<IUpdatable>();
+        private readonly List<IUpdatable> _Updatables = new List<IUpdatable>();
 
         private void Update()
         {
-            for (int i = _updatables.Count - 1; i >= 0; i--)
+            for (int i = _Updatables.Count - 1; i >= 0; i--)
             {
-                _updatables[i].Update();
+                _Updatables[i].Update();
             }
         }
 
@@ -22,12 +22,12 @@ namespace Common.Update
         /// Registers an object to receive update callbacks.
         /// </summary>
         /// <param name="obj">The object to add.</param>
-        public void Register(IUpdatable obj) => _updatables.Add(obj);
+        public void Register(IUpdatable obj) => _Updatables.Add(obj);
 
         /// <summary>
         /// Unregisters an object so it no longer receives update callbacks.
         /// </summary>
         /// <param name="obj">The object to remove.</param>
-        public void Unregister(IUpdatable obj) => _updatables.Remove(obj);
+        public void Unregister(IUpdatable obj) => _Updatables.Remove(obj);
     }
 }

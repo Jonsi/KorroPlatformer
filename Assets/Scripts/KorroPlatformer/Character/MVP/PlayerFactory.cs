@@ -1,6 +1,8 @@
-﻿using Common.Input;
+﻿using Common.Events;
+using Common.Input;
 using Common.Update;
 using KorroPlatformer.Character.States;
+using KorroPlatformer.Events;
 using UnityEngine;
 
 namespace KorroPlatformer.Character.MVP
@@ -10,30 +12,45 @@ namespace KorroPlatformer.Character.MVP
         private readonly UpdateManager _UpdateManager;
         private readonly IInputProvider _InputProvider;
         private readonly PlayerConfiguration _Configuration;
+        private readonly HealthChangedEvent _HealthChangedEvent;
+        private readonly VoidEventChannel _PlayerDiedEvent;
+        private readonly IntEventChannel _HitEvent;
 
-        public PlayerFactory(UpdateManager updateManager, IInputProvider inputProvider, PlayerConfiguration configuration)
+        public PlayerFactory(
+            UpdateManager updateManager, 
+            IInputProvider inputProvider, 
+            PlayerConfiguration configuration,
+            HealthChangedEvent healthChangedEvent,
+            VoidEventChannel playerDiedEvent,
+            IntEventChannel hitEvent)
         {
             _UpdateManager = updateManager;
             _InputProvider = inputProvider;
             _Configuration = configuration;
+            _HealthChangedEvent = healthChangedEvent;
+            _PlayerDiedEvent = playerDiedEvent;
+            _HitEvent = hitEvent;
         }
 
         public PlayerPresenter Create(PlayerView prefab, Transform parent)
         {
-            PlayerModel model = new PlayerModel();
+            PlayerModel model = new PlayerModel(_Configuration.MaxHealth);
             PlayerView view = Object.Instantiate(prefab, parent);
             view.Initialize(_Configuration, model);
-            PlayerStateMachine stateMachine = CreateStateMachine(view);
+            PlayerStateMachine stateMachine = CreateStateMachine(view, model);
             
             return new PlayerPresenter(view, model, stateMachine, _UpdateManager);
         }
 
-        private PlayerStateMachine CreateStateMachine(PlayerView view)
+        private PlayerStateMachine CreateStateMachine(PlayerView view, PlayerModel model)
         {
             return new PlayerStateMachine(
-                machine => new IdleState(_InputProvider, view, machine),
-                machine => new WalkState(_InputProvider, view, machine),
-                machine => new JumpState(_InputProvider, view, machine));
+                new IdleState(_InputProvider, view),
+                new WalkState(_InputProvider, view, _HitEvent),
+                new JumpState(_InputProvider, view),
+                new HitState(model, view, _HealthChangedEvent, _PlayerDiedEvent, _Configuration.HitDuration),
+                new DeathState()
+            );
         }
     }
 }

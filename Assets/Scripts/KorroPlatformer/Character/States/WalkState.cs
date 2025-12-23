@@ -1,3 +1,4 @@
+using Common.Events;
 using Common.Input;
 using Common.States;
 using KorroPlatformer.Character.MVP;
@@ -9,13 +10,22 @@ namespace KorroPlatformer.Character.States
     {
         private readonly IInputProvider _InputProvider;
         private readonly IPlayerMovement _PlayerMovement;
-        private readonly PlayerStateMachine _StateMachine;
+        private readonly IntEventChannel _HitEvent;
+        private PlayerStateMachine _StateMachine;
         private bool _JumpRequested;
 
-        public WalkState(IInputProvider inputProvider, IPlayerMovement playerMovement, PlayerStateMachine stateMachine)
+        public WalkState(
+            IInputProvider inputProvider, 
+            IPlayerMovement playerMovement,
+            IntEventChannel hitEvent)
         {
             _InputProvider = inputProvider;
             _PlayerMovement = playerMovement;
+            _HitEvent = hitEvent;
+        }
+
+        public void Initialize(PlayerStateMachine stateMachine)
+        {
             _StateMachine = stateMachine;
         }
 
@@ -23,9 +33,25 @@ namespace KorroPlatformer.Character.States
         {
             _JumpRequested = false;
             _InputProvider.JumpPerformed += OnJump;
+            
+            if (_HitEvent != null)
+            {
+                _HitEvent.Subscribe(OnDamageReceived);
+            }
         }
 
-        public void Exit() => _InputProvider.JumpPerformed -= OnJump;
+        public void Exit()
+        {
+            _InputProvider.JumpPerformed -= OnJump;
+            
+            // Do NOT reset MoveDirection here, as it kills jump momentum.
+            // Resetting movement on Hit should be handled by the HitState/Transition logic if needed.
+            
+            if (_HitEvent != null)
+            {
+                _HitEvent.Unsubscribe(OnDamageReceived);
+            }
+        }
 
         public IState Update()
         {
@@ -40,5 +66,11 @@ namespace KorroPlatformer.Character.States
         }
 
         private void OnJump() => _JumpRequested = true;
+
+        private void OnDamageReceived(int damage)
+        {
+             _StateMachine.HitState.Prepare(damage);
+             _StateMachine.SetState(_StateMachine.HitState);
+        }
     }
 }

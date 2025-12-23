@@ -9,12 +9,16 @@ namespace KorroPlatformer.Character.States
     {
         private readonly IInputProvider _InputProvider;
         private readonly IPlayerMovement _PlayerMovement;
-        private readonly PlayerStateMachine _StateMachine;
+        private PlayerStateMachine _StateMachine;
 
-        public JumpState(IInputProvider inputProvider, IPlayerMovement playerMovement, PlayerStateMachine stateMachine)
+        public JumpState(IInputProvider inputProvider, IPlayerMovement playerMovement)
         {
             _InputProvider = inputProvider;
             _PlayerMovement = playerMovement;
+        }
+
+        public void Initialize(PlayerStateMachine stateMachine)
+        {
             _StateMachine = stateMachine;
         }
 

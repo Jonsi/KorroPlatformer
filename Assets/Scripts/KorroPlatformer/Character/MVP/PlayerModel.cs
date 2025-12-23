@@ -4,6 +4,19 @@ namespace KorroPlatformer.Character.MVP
 {
     public class PlayerModel : IModel
     {
-        // Runtime state (coins, keys, health, etc.) goes here
+        public int MaxHealth { get; private set; }
+        public int CurrentHealth { get; private set; }
+        public bool IsDead => CurrentHealth <= 0;
+
+        public PlayerModel(int maxHealth)
+        {
+            MaxHealth = maxHealth;
+            CurrentHealth = maxHealth;
+        }
+
+        public void SetHealth(int health)
+        {
+            CurrentHealth = UnityEngine.Mathf.Clamp(health, 0, MaxHealth);
+        }
     }
 }

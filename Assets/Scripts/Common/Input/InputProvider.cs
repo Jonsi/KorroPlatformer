@@ -7,29 +7,29 @@ namespace Common.Input
     /// <summary>
     /// Reads raw input from Unity input actions.
     /// </summary>
-    public class PCInputProvider : IInputProvider, IDisposable
+    public class InputProvider : IInputProvider, IDisposable
     {
-        private readonly InputAction _moveAction;
-        private readonly InputAction _jumpAction;
+        private readonly InputAction _MoveAction;
+        private readonly InputAction _JumpAction;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PCInputProvider"/> class.
+        /// Initializes a new instance of the <see cref="InputProvider"/> class.
         /// </summary>
         /// <param name="moveAction">The input action used to read movement.</param>
         /// <param name="jumpAction">The input action used to detect jumps.</param>
-        public PCInputProvider(InputAction moveAction, InputAction jumpAction)
+        public InputProvider(InputAction moveAction, InputAction jumpAction)
         {
-            _moveAction = moveAction;
-            _jumpAction = jumpAction;
-            _moveAction.Enable();
-            _jumpAction.Enable();
-            _jumpAction.performed += OnJumpPerformed;
+            _MoveAction = moveAction;
+            _JumpAction = jumpAction;
+            _MoveAction.Enable();
+            _JumpAction.Enable();
+            _JumpAction.performed += OnJumpPerformed;
         }
 
         /// <summary>
         /// Gets the current movement direction from the input action.
         /// </summary>
-        public Vector2 MoveDirection => _moveAction.ReadValue<Vector2>();
+        public Vector2 MoveDirection => _MoveAction.ReadValue<Vector2>();
 
         /// <summary>
         /// Raised when jump input is performed.
@@ -41,9 +41,9 @@ namespace Common.Input
         /// </summary>
         public void Dispose()
         {
-            _jumpAction.performed -= OnJumpPerformed;
-            _moveAction.Disable();
-            _jumpAction.Disable();
+            _JumpAction.performed -= OnJumpPerformed;
+            _MoveAction.Disable();
+            _JumpAction.Disable();
         }
 
         private void OnJumpPerformed(InputAction.CallbackContext context)

@@ -211,7 +211,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _CharacterController: {fileID: 740188428429075142}
-  _MoveAction: {fileID: -1680190386980627800, guid: 289c1b55c9541489481df5cc06664110, type: 3}
+  _HitEvent: {fileID: 11400000, guid: 9e2c444fc5e2a074e8b4bbea293e6677, type: 2}
 --- !u!136 &8349270789517511912
 CapsuleCollider:
   m_ObjectHideFlags: 0
