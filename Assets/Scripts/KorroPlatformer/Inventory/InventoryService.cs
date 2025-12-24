@@ -1,7 +1,7 @@
-using System;
 using System.Collections.Generic;
 using KorroPlatformer.Collectibles;
 using KorroPlatformer.Events;
+using UnityEngine;
 
 namespace KorroPlatformer.Inventory
 {
@@ -9,28 +9,35 @@ namespace KorroPlatformer.Inventory
     /// Service that manages the player's inventory (coins, keys, etc.).
     /// Listens to collection events and updates its internal state.
     /// </summary>
-    public class InventoryService : IDisposable
+    [CreateAssetMenu(fileName = "InventoryService", menuName = "KorroPlatformer/Systems/InventoryService")]
+    public class InventoryService : ScriptableObject
     {
-        private readonly CollectibleCollectedEvent _CollectibleCollectedEvent;
+        [SerializeField] private CollectibleCollectedEvent _CollectibleCollectedEvent;
+        
         private readonly Dictionary<CollectibleType, int> _Inventory = new();
 
         public int Coins => _Inventory.GetValueOrDefault(CollectibleType.Coin, 0);
 
-        public InventoryService(CollectibleCollectedEvent collectibleCollectedEvent)
+        private void OnEnable()
         {
-            _CollectibleCollectedEvent = collectibleCollectedEvent;
+            _Inventory.Clear();
             if (_CollectibleCollectedEvent != null)
             {
                 _CollectibleCollectedEvent.Subscribe(OnCollectibleCollected);
             }
         }
 
-        public void Dispose()
+        private void OnDisable()
         {
             if (_CollectibleCollectedEvent != null)
             {
                 _CollectibleCollectedEvent.Unsubscribe(OnCollectibleCollected);
             }
+        }
+
+        public bool HasItem(CollectibleType type)
+        {
+            return _Inventory.GetValueOrDefault(type, 0) > 0;
         }
 
         private void OnCollectibleCollected(CollectiblePayload payload)
