@@ -1,16 +1,16 @@
 using Common.MVP;
 using KorroPlatformer.Events;
 
-namespace KorroPlatformer.Collectibles.Coins
+namespace KorroPlatformer.Collectibles.Shared
 {
-    public class CoinPresenter : BasePresenter<CoinView, CoinModel>
+    public class CollectiblePresenter : BasePresenter<CollectibleView, CollectibleModel>
     {
         private readonly CollectibleCollectedEvent _CollectibleCollectedEvent;
 
-        public CoinPresenter(CoinView view, CoinModel model, CollectibleCollectedEvent collectibleCollectedEvent) : base(view, model)
+        public CollectiblePresenter(CollectibleView view, CollectibleModel model, CollectibleCollectedEvent collectibleCollectedEvent) 
+            : base(view, model)
         {
             _CollectibleCollectedEvent = collectibleCollectedEvent;
-            
             View.OnInteract += HandleInteraction;
         }
 
@@ -23,8 +23,7 @@ namespace KorroPlatformer.Collectibles.Coins
         {
             if (_CollectibleCollectedEvent != null)
             {
-                // Raise event with Payload instead of View
-                var payload = new CollectiblePayload(CollectibleType.Coin, Model.Value);
+                var payload = new CollectiblePayload(Model.Type, Model.Amount);
                 _CollectibleCollectedEvent.Raise(payload);
             }
             
@@ -33,3 +32,4 @@ namespace KorroPlatformer.Collectibles.Coins
         }
     }
 }
+

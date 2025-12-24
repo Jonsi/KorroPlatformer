@@ -13,7 +13,9 @@ namespace KorroPlatformer.Inventory
     {
         private readonly CollectibleCollectedEvent _CollectibleCollectedEvent;
         private readonly Dictionary<CollectibleType, int> _Inventory = new();
-        
+
+        public int Coins => _Inventory.GetValueOrDefault(CollectibleType.Coin, 0);
+
         public InventoryService(CollectibleCollectedEvent collectibleCollectedEvent)
         {
             _CollectibleCollectedEvent = collectibleCollectedEvent;
@@ -33,7 +35,10 @@ namespace KorroPlatformer.Inventory
 
         private void OnCollectibleCollected(CollectiblePayload payload)
         {
-            _Inventory.TryAdd(payload.Type, 0);
+            if (!_Inventory.ContainsKey(payload.Type))
+            {
+                _Inventory[payload.Type] = 0;
+            }
             _Inventory[payload.Type] += payload.Amount;
         }
     }

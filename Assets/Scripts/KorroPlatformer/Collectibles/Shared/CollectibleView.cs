@@ -3,20 +3,14 @@ using Common;
 using Common.MVP;
 using UnityEngine;
 
-namespace KorroPlatformer.Collectibles.Coins
+namespace KorroPlatformer.Collectibles.Shared
 {
-    /// <summary>
-    /// View component for a Coin collectible.
-    /// </summary>
-    public class CoinView : BaseCollectibleView, IView<CoinModel>
+    public class CollectibleView : BaseCollectibleView, IView<CollectibleModel>
     {
         public event Action OnInteract;
-        
-        private CoinModel _Model;
-        
-        public int Value => _Model != null ? _Model.Value : 0;
-        
-        public void Initialize(CoinModel model)
+        private CollectibleModel _Model;
+
+        public void Initialize(CollectibleModel model)
         {
             _Model = model;
         }
@@ -44,3 +38,4 @@ namespace KorroPlatformer.Collectibles.Coins
         }
     }
 }
+
