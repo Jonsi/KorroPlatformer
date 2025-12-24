@@ -1,5 +1,6 @@
 ﻿using Common;
 using Common.Events;
+using Common.Interaction;
 using Common.MVP;
 using UnityEngine;
 
@@ -75,6 +76,15 @@ namespace KorroPlatformer.Character.MVP
 
             Vector3 move = new Vector3(MoveDirection.x * _Config.MoveSpeed, _VerticalVelocity, MoveDirection.y * _Config.MoveSpeed);
             _CharacterController.Move(move * Time.deltaTime);
+        }
+        
+        private void OnTriggerEnter(Collider other)
+        {
+            IInteractable interactable = other.GetComponent<IInteractable>();
+            if (interactable != null)
+            {
+                interactable.Interact();
+            }
         }
     }
 }
