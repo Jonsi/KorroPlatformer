@@ -9,11 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ed933068596c584790f4f94eccb7ede, type: 3}
-  m_Name: PlayerConfiguration
+  m_Script: {fileID: 11500000, guid: a63687c53bd9eff4bbe32ed283eb32a8, type: 3}
+  m_Name: PlayerAnimationConfiguration
   m_EditorClassIdentifier: 
-  <MoveSpeed>k__BackingField: 3
-  <JumpForce>k__BackingField: 10
-  <Gravity>k__BackingField: -30
-  <MaxHealth>k__BackingField: 3
-  <HitDuration>k__BackingField: 0
+  <IdleStateName>k__BackingField: Idle
+  <WalkStateName>k__BackingField: Walk
+  <CrossFadeDuration>k__BackingField: 0.1

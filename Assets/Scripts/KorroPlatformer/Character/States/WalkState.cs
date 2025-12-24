@@ -10,6 +10,7 @@ namespace KorroPlatformer.Character.States
     {
         private readonly IInputProvider _InputProvider;
         private readonly IPlayerMovement _PlayerMovement;
+        private readonly IPlayerAnimator _PlayerAnimator;
         private readonly IntEventChannel _HitEvent;
         private PlayerStateMachine _StateMachine;
         private bool _JumpRequested;
@@ -17,10 +18,12 @@ namespace KorroPlatformer.Character.States
         public WalkState(
             IInputProvider inputProvider, 
             IPlayerMovement playerMovement,
+            IPlayerAnimator playerAnimator,
             IntEventChannel hitEvent)
         {
             _InputProvider = inputProvider;
             _PlayerMovement = playerMovement;
+            _PlayerAnimator = playerAnimator;
             _HitEvent = hitEvent;
         }
 
@@ -33,6 +36,7 @@ namespace KorroPlatformer.Character.States
         {
             _JumpRequested = false;
             _InputProvider.JumpPerformed += OnJump;
+            _PlayerAnimator.PlayWalk();
             
             if (_HitEvent != null)
             {

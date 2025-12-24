@@ -5,22 +5,31 @@ using UnityEngine;
 
 namespace KorroPlatformer.Character.MVP
 {
-    public class PlayerView : MonoBehaviour, IView<PlayerModel>, IPlayerMovement, IHitable
+    public class PlayerView : MonoBehaviour, IView<PlayerModel>, IPlayerMovement, IHitable, IPlayerAnimator
     {
         [SerializeField] private CharacterController _CharacterController;
+        [SerializeField] private Animator _Animator;
         [SerializeField] private IntEventChannel _HitEvent;
 
         private PlayerConfiguration _Config;
+        private PlayerAnimationConfiguration _AnimConfig;
         private PlayerModel _Model;
         private float _VerticalVelocity;
+
+        private int _IdleStateHash;
+        private int _WalkStateHash;
 
         public bool IsGrounded => _CharacterController.isGrounded;
         public Vector2 MoveDirection { get; set; }
 
-        public void Initialize(PlayerConfiguration config, PlayerModel model)
+        public void Initialize(PlayerConfiguration config, PlayerAnimationConfiguration animConfig, PlayerModel model)
         {
             _Config = config;
+            _AnimConfig = animConfig;
             _Model = model;
+
+            _IdleStateHash = Animator.StringToHash(_AnimConfig.IdleStateName);
+            _WalkStateHash = Animator.StringToHash(_AnimConfig.WalkStateName);
         }
 
         void IView<PlayerModel>.Initialize(PlayerModel model) => _Model = model;
@@ -38,6 +47,9 @@ namespace KorroPlatformer.Character.MVP
         }
 
         public void Jump() => _VerticalVelocity = _Config.JumpForce;
+
+        public void PlayIdle() => _Animator.CrossFade(_IdleStateHash, _AnimConfig.CrossFadeDuration);
+        public void PlayWalk() => _Animator.CrossFade(_WalkStateHash, _AnimConfig.CrossFadeDuration);
 
         public void TakeDamage(int damage)
         {

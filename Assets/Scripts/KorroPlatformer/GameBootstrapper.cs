@@ -16,6 +16,7 @@ namespace KorroPlatformer
     {
         [SerializeField] private UpdateManager _UpdateManager;
         [SerializeField] private PlayerConfiguration _PlayerConfiguration;
+        [SerializeField] private PlayerAnimationConfiguration _PlayerAnimationConfiguration;
         [SerializeField] private PlayerView _PlayerPrefab;
         [SerializeField] private Transform _SpawnPoint;
         [SerializeField] private InputActionReference _MoveAction;
@@ -36,6 +37,7 @@ namespace KorroPlatformer
                 _UpdateManager, 
                 _InputProvider, 
                 _PlayerConfiguration, 
+                _PlayerAnimationConfiguration,
                 _HealthChangedEvent, 
                 _PlayerDiedEvent,
                 _HitEvent);

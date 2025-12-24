@@ -12,6 +12,7 @@ namespace KorroPlatformer.Character.MVP
         private readonly UpdateManager _UpdateManager;
         private readonly IInputProvider _InputProvider;
         private readonly PlayerConfiguration _Configuration;
+        private readonly PlayerAnimationConfiguration _AnimConfiguration;
         private readonly HealthChangedEvent _HealthChangedEvent;
         private readonly VoidEventChannel _PlayerDiedEvent;
         private readonly IntEventChannel _HitEvent;
@@ -20,6 +21,7 @@ namespace KorroPlatformer.Character.MVP
             UpdateManager updateManager, 
             IInputProvider inputProvider, 
             PlayerConfiguration configuration,
+            PlayerAnimationConfiguration animConfiguration,
             HealthChangedEvent healthChangedEvent,
             VoidEventChannel playerDiedEvent,
             IntEventChannel hitEvent)
@@ -27,6 +29,7 @@ namespace KorroPlatformer.Character.MVP
             _UpdateManager = updateManager;
             _InputProvider = inputProvider;
             _Configuration = configuration;
+            _AnimConfiguration = animConfiguration;
             _HealthChangedEvent = healthChangedEvent;
             _PlayerDiedEvent = playerDiedEvent;
             _HitEvent = hitEvent;
@@ -36,7 +39,7 @@ namespace KorroPlatformer.Character.MVP
         {
             PlayerModel model = new PlayerModel(_Configuration.MaxHealth);
             PlayerView view = Object.Instantiate(prefab, parent);
-            view.Initialize(_Configuration, model);
+            view.Initialize(_Configuration, _AnimConfiguration, model);
             PlayerStateMachine stateMachine = CreateStateMachine(view, model);
             
             return new PlayerPresenter(view, model, stateMachine, _UpdateManager);
@@ -45,8 +48,8 @@ namespace KorroPlatformer.Character.MVP
         private PlayerStateMachine CreateStateMachine(PlayerView view, PlayerModel model)
         {
             return new PlayerStateMachine(
-                new IdleState(_InputProvider, view),
-                new WalkState(_InputProvider, view, _HitEvent),
+                new IdleState(_InputProvider, view, view),
+                new WalkState(_InputProvider, view, view, _HitEvent),
                 new JumpState(_InputProvider, view),
                 new HitState(model, view, _HealthChangedEvent, _PlayerDiedEvent, _Configuration.HitDuration),
                 new DeathState()

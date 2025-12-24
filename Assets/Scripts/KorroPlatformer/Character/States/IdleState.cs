@@ -9,13 +9,15 @@ namespace KorroPlatformer.Character.States
     {
         private readonly IInputProvider _InputProvider;
         private readonly IPlayerMovement _PlayerMovement;
+        private readonly IPlayerAnimator _PlayerAnimator;
         private PlayerStateMachine _StateMachine;
         private bool _JumpRequested;
 
-        public IdleState(IInputProvider inputProvider, IPlayerMovement playerMovement)
+        public IdleState(IInputProvider inputProvider, IPlayerMovement playerMovement, IPlayerAnimator playerAnimator)
         {
             _InputProvider = inputProvider;
             _PlayerMovement = playerMovement;
+            _PlayerAnimator = playerAnimator;
         }
 
         public void Initialize(PlayerStateMachine stateMachine)
@@ -27,6 +29,7 @@ namespace KorroPlatformer.Character.States
         {
             _JumpRequested = false;
             _InputProvider.JumpPerformed += OnJump;
+            _PlayerAnimator.PlayIdle();
         }
 
         public void Exit()
