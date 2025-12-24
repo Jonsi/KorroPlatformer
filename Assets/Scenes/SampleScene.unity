@@ -429,7 +429,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _UpdateManager: {fileID: 328874009}
   _PlayerConfiguration: {fileID: 11400000, guid: e0443224207e8c44f9f66311057cfa14, type: 2}
-  _PlayerPrefab: {fileID: 7859400312948566082, guid: 07e8cfe79caa18c4aab17ce9ee73d707, type: 3}
+  _PlayerPrefab: {fileID: 5814643374744099001, guid: e29958332e363f542af1f21ac649155f, type: 3}
   _SpawnPoint: {fileID: 1065065963}
   _MoveAction: {fileID: -1680190386980627800, guid: 289c1b55c9541489481df5cc06664110, type: 3}
   _JumpAction: {fileID: -2099379676528639254, guid: 289c1b55c9541489481df5cc06664110, type: 3}
