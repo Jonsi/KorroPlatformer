@@ -18,6 +18,8 @@ namespace KorroPlatformer.Character.MVP
 
         private int _IdleStateHash;
         private int _WalkStateHash;
+        private int _JumpStateHash;
+        private int _HitStateHash;
 
         public bool IsGrounded => _CharacterController.isGrounded;
         public Vector2 MoveDirection { get; set; }
@@ -30,6 +32,8 @@ namespace KorroPlatformer.Character.MVP
 
             _IdleStateHash = Animator.StringToHash(_AnimConfig.IdleStateName);
             _WalkStateHash = Animator.StringToHash(_AnimConfig.WalkStateName);
+            _JumpStateHash = Animator.StringToHash(_AnimConfig.JumpStateName);
+            _HitStateHash = Animator.StringToHash(_AnimConfig.HitStateName);
         }
 
         void IView<PlayerModel>.Initialize(PlayerModel model) => _Model = model;
@@ -50,6 +54,8 @@ namespace KorroPlatformer.Character.MVP
 
         public void PlayIdle() => _Animator.CrossFade(_IdleStateHash, _AnimConfig.CrossFadeDuration);
         public void PlayWalk() => _Animator.CrossFade(_WalkStateHash, _AnimConfig.CrossFadeDuration);
+        public void PlayJump() => _Animator.CrossFade(_JumpStateHash, _AnimConfig.CrossFadeDuration);
+        public void PlayHit() => _Animator.CrossFade(_HitStateHash, _AnimConfig.CrossFadeDuration);
 
         public void TakeDamage(int damage)
         {

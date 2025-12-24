@@ -9,7 +9,6 @@ namespace KorroPlatformer.Character.MVP
         [field: SerializeField] public float JumpForce { get; private set; } = 8f;
         [field: SerializeField] public float Gravity { get; private set; } = -20f;
         [field: SerializeField] public int MaxHealth { get; private set; } = 3;
-        [field: SerializeField] public float HitDuration { get; private set; } = 0.5f;
     }
 }
 

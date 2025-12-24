@@ -15,5 +15,4 @@ MonoBehaviour:
   <MoveSpeed>k__BackingField: 3
   <JumpForce>k__BackingField: 10
   <Gravity>k__BackingField: -30
-  <MaxHealth>k__BackingField: 3
-  <HitDuration>k__BackingField: 0
+  <MaxHealth>k__BackingField: 5

@@ -13,7 +13,10 @@ namespace KorroPlatformer.Character.States
         private PlayerStateMachine _StateMachine;
         private bool _JumpRequested;
 
-        public IdleState(IInputProvider inputProvider, IPlayerMovement playerMovement, IPlayerAnimator playerAnimator)
+        public IdleState(
+            IInputProvider inputProvider, 
+            IPlayerMovement playerMovement, 
+            IPlayerAnimator playerAnimator)
         {
             _InputProvider = inputProvider;
             _PlayerMovement = playerMovement;

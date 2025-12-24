@@ -50,8 +50,8 @@ namespace KorroPlatformer.Character.MVP
             return new PlayerStateMachine(
                 new IdleState(_InputProvider, view, view),
                 new WalkState(_InputProvider, view, view, _HitEvent),
-                new JumpState(_InputProvider, view),
-                new HitState(model, view, _HealthChangedEvent, _PlayerDiedEvent, _Configuration.HitDuration),
+                new JumpState(_InputProvider, view, view, _HitEvent),
+                new HitState(model, view, view, _HealthChangedEvent, _PlayerDiedEvent, _AnimConfiguration.HitDuration),
                 new DeathState()
             );
         }

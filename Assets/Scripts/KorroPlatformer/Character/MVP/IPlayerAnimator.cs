@@ -4,6 +4,8 @@ namespace KorroPlatformer.Character.MVP
     {
         void PlayIdle();
         void PlayWalk();
+        void PlayJump();
+        void PlayHit();
     }
 }
 

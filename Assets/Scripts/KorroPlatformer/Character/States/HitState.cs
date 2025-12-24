@@ -11,6 +11,7 @@ namespace KorroPlatformer.Character.States
         private PlayerStateMachine _StateMachine;
         private readonly PlayerModel _Model;
         private readonly IPlayerMovement _PlayerMovement;
+        private readonly IPlayerAnimator _PlayerAnimator;
         private readonly HealthChangedEvent _HealthChangedEvent;
         private readonly VoidEventChannel _PlayerDiedEvent;
         private readonly float _Duration;
@@ -21,12 +22,14 @@ namespace KorroPlatformer.Character.States
         public HitState(
             PlayerModel model,
             IPlayerMovement playerMovement,
+            IPlayerAnimator playerAnimator,
             HealthChangedEvent healthChangedEvent,
             VoidEventChannel playerDiedEvent,
             float duration)
         {
             _Model = model;
             _PlayerMovement = playerMovement;
+            _PlayerAnimator = playerAnimator;
             _HealthChangedEvent = healthChangedEvent;
             _PlayerDiedEvent = playerDiedEvent;
             _Duration = duration;
@@ -46,6 +49,7 @@ namespace KorroPlatformer.Character.States
         {
             _ElapsedTime = 0f;
             _PlayerMovement.MoveDirection = Vector2.zero; // Stop movement on hit
+            _PlayerAnimator.PlayHit();
             ApplyDamage();
         }
 

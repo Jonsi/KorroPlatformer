@@ -9,12 +9,20 @@ namespace KorroPlatformer.Character.States
     {
         private readonly IInputProvider _InputProvider;
         private readonly IPlayerMovement _PlayerMovement;
+        private readonly IPlayerAnimator _PlayerAnimator;
+        private readonly Common.Events.IntEventChannel _HitEvent;
         private PlayerStateMachine _StateMachine;
 
-        public JumpState(IInputProvider inputProvider, IPlayerMovement playerMovement)
+        public JumpState(
+            IInputProvider inputProvider, 
+            IPlayerMovement playerMovement,
+            IPlayerAnimator playerAnimator,
+            Common.Events.IntEventChannel hitEvent)
         {
             _InputProvider = inputProvider;
             _PlayerMovement = playerMovement;
+            _PlayerAnimator = playerAnimator;
+            _HitEvent = hitEvent;
         }
 
         public void Initialize(PlayerStateMachine stateMachine)
@@ -26,9 +34,18 @@ namespace KorroPlatformer.Character.States
         {
             if (_PlayerMovement.IsGrounded)
                 _PlayerMovement.Jump();
+                
+            _PlayerAnimator.PlayJump();
+
+            if (_HitEvent != null)
+                _HitEvent.Subscribe(OnDamageReceived);
         }
 
-        public void Exit() { }
+        public void Exit()
+        {
+            if (_HitEvent != null)
+                _HitEvent.Unsubscribe(OnDamageReceived);
+        }
 
         public IState Update()
         {
@@ -40,6 +57,12 @@ namespace KorroPlatformer.Character.States
             }
             
             return null;
+        }
+
+        private void OnDamageReceived(int damage)
+        {
+             _StateMachine.HitState.Prepare(damage);
+             _StateMachine.SetState(_StateMachine.HitState);
         }
     }
 }
