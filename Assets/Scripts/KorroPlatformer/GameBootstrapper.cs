@@ -5,6 +5,7 @@ using Common.Update;
 using KorroPlatformer.Character.MVP;
 using KorroPlatformer.Events;
 using KorroPlatformer.Inventory;
+using KorroPlatformer.Level.Door;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -30,7 +31,6 @@ namespace KorroPlatformer
         [SerializeField] private CollectibleCollectedEvent _CollectibleCollectedEvent;
 
         private PlayerPresenter _PlayerPresenter;
-        private InventoryService _InventoryService;
         private InputProvider _InputProvider;
 
         private void Start()
@@ -48,9 +48,6 @@ namespace KorroPlatformer
                 _HitEvent);
             
             _PlayerPresenter = factory.Create(_PlayerPrefab, _SpawnPoint);
-            
-            // Create Inventory Service
-            _InventoryService = new InventoryService(_CollectibleCollectedEvent);
         }
 
         private void Update()
@@ -65,7 +62,6 @@ namespace KorroPlatformer
         private void OnDestroy()
         {
             _PlayerPresenter?.Dispose();
-            _InventoryService?.Dispose();
             _InputProvider?.Dispose();
         }
 
