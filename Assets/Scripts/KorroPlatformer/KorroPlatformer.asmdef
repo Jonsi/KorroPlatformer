@@ -2,6 +2,7 @@
     "name": "KorroPlatformer",
     "references": [
         "Common",
-        "Unity.InputSystem"
+        "Unity.InputSystem",
+        "Unity.TextMeshPro"
     ]
 }

@@ -38,6 +38,12 @@ namespace KorroPlatformer.Character.MVP
         public PlayerPresenter Create(PlayerView prefab, Transform parent)
         {
             PlayerModel model = new PlayerModel(_Configuration.MaxHealth);
+
+            if (_HealthChangedEvent != null)
+            {
+                _HealthChangedEvent.Raise(new HealthChangedPayload(model.CurrentHealth, model.MaxHealth));
+            }
+
             PlayerView view = Object.Instantiate(prefab, parent);
             view.Initialize(_Configuration, _AnimConfiguration, model);
             PlayerStateMachine stateMachine = CreateStateMachine(view, model);
