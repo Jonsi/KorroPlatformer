@@ -9,7 +9,7 @@ namespace Common.Events
     /// Event channel for void events (no data passed).
     /// </summary>
     [CreateAssetMenu(fileName = "VoidEventChannel", menuName = "KorroPlatformer/Events/Void Event Channel")]
-    public class VoidEventChannel : ScriptableObject, IEventChannel
+    public sealed class VoidEventChannel : ScriptableObject, IEventChannel
     {
         private readonly Dictionary<object, Action> _Subscriptions = new();
 
@@ -50,5 +50,3 @@ namespace Common.Events
         }
     }
 }
-
-
