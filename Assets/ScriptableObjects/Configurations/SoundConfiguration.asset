@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13d16acf2ad20c24395e6251d09032c7, type: 3}
   m_Name: SoundConfiguration
   m_EditorClassIdentifier: 
-  LevelComplete: {fileID: 8300000, guid: 52320e590bf774734a288886eba557ba, type: 3}
-  PlayerJump: {fileID: 8300000, guid: d46323e22e74e46baa241cbf48c85671, type: 3}
-  PlayerHit: {fileID: 8300000, guid: 8b23b175a78d6b5458322e3a6c9905d0, type: 3}
-  PlayerDeath: {fileID: 8300000, guid: bf0938dc5667ff34aa2616789bb48a17, type: 3}
-  CollectCoin: {fileID: 8300000, guid: 2a71d8e8ea428e0409d3df636b9f0192, type: 3}
-  CollectKey: {fileID: 8300000, guid: 79180f511d89441b9aa23ccae1992fe0, type: 3}
+  <LevelComplete>k__BackingField: {fileID: 8300000, guid: 52320e590bf774734a288886eba557ba, type: 3}
+  <PlayerJump>k__BackingField: {fileID: 8300000, guid: d46323e22e74e46baa241cbf48c85671, type: 3}
+  <PlayerHit>k__BackingField: {fileID: 8300000, guid: 8b23b175a78d6b5458322e3a6c9905d0, type: 3}
+  <PlayerDeath>k__BackingField: {fileID: 8300000, guid: bf0938dc5667ff34aa2616789bb48a17, type: 3}
+  <CollectCoin>k__BackingField: {fileID: 8300000, guid: 2a71d8e8ea428e0409d3df636b9f0192, type: 3}
+  <CollectKey>k__BackingField: {fileID: 8300000, guid: 79180f511d89441b9aa23ccae1992fe0, type: 3}
