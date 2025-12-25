@@ -19,6 +19,7 @@ namespace KorroPlatformer.UI.GameUI
         
         [Header("Configuration")]
         [SerializeField] private LevelConfiguration _LevelConfiguration;
+        [SerializeField] private Character.MVP.PlayerConfiguration _PlayerConfiguration;
 
         private GameUIPresenter _Presenter;
 
@@ -33,7 +34,8 @@ namespace KorroPlatformer.UI.GameUI
                 _CollectibleEvent,
                 _PlayerDiedEvent,
                 _LevelCompleteEvent,
-                _LevelConfiguration);
+                _LevelConfiguration,
+                _PlayerConfiguration);
             
             _View.Initialize(model);
         }

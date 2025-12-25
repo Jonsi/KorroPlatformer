@@ -19,6 +19,7 @@ namespace KorroPlatformer.UI.GameUI
         private readonly VoidEventChannel _PlayerDiedEvent;
         private readonly VoidEventChannel _LevelCompleteEvent;
         private readonly ILevelProvider _LevelProvider;
+        private readonly Character.MVP.PlayerConfiguration _PlayerConfiguration;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GameUIPresenter"/> class.
@@ -30,7 +31,8 @@ namespace KorroPlatformer.UI.GameUI
             CollectibleCollectedEvent collectibleEvent,
             VoidEventChannel playerDiedEvent,
             VoidEventChannel levelCompleteEvent,
-            ILevelProvider levelProvider)
+            ILevelProvider levelProvider,
+            Character.MVP.PlayerConfiguration playerConfiguration)
             : base(view, model)
         {
             _HealthChangedEvent = healthChangedEvent;
@@ -38,12 +40,24 @@ namespace KorroPlatformer.UI.GameUI
             _PlayerDiedEvent = playerDiedEvent;
             _LevelCompleteEvent = levelCompleteEvent;
             _LevelProvider = levelProvider;
+            _PlayerConfiguration = playerConfiguration;
 
+            InitializeModel();
             SubscribeToEvents();
             
             if (View != null)
             {
                 View.OnBackToMenuRequested += HandleBackToMenuRequested;
+            }
+        }
+
+        private void InitializeModel()
+        {
+            if (_PlayerConfiguration != null)
+            {
+                Model.MaxHealth = _PlayerConfiguration.MaxHealth;
+                Model.CurrentHealth = _PlayerConfiguration.MaxHealth;
+                View.UpdateHealth(Model.CurrentHealth, Model.MaxHealth);
             }
         }
 

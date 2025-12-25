@@ -26,6 +26,7 @@ namespace KorroPlatformer.Character
         [Header("Events")]
         [SerializeField] private HealthChangedEvent _HealthChangedEvent;
         [SerializeField] private VoidEventChannel _PlayerDiedEvent;
+        [SerializeField] private VoidEventChannel _PlayerJumpEvent;
         [SerializeField] private IntEventChannel _HitEvent;
 
         private PlayerPresenter _Presenter;
@@ -47,7 +48,7 @@ namespace KorroPlatformer.Character
             PlayerStateMachine stateMachine = new PlayerStateMachine(
                 new IdleState(_InputProvider, _View, _View),
                 new WalkState(_InputProvider, _View, _View, _HitEvent),
-                new JumpState(_InputProvider, _View, _View, _HitEvent),
+                new JumpState(_InputProvider, _View, _View, _HitEvent, _PlayerJumpEvent),
                 new HitState(model, _View, _View, _HealthChangedEvent, _PlayerDiedEvent, _AnimConfiguration.HitDuration),
                 new DeathState()
             );
