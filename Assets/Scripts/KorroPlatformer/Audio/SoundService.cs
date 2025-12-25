@@ -1,5 +1,4 @@
 using Common.Events;
-using KorroPlatformer.Collectibles;
 using KorroPlatformer.Events;
 using UnityEngine;
 

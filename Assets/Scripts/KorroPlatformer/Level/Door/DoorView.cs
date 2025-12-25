@@ -18,7 +18,6 @@ namespace KorroPlatformer.Level.Door
         private DoorAnimationConfiguration _AnimConfig;
         
         private int _OpenStateHash;
-        private int _ClosedStateHash;
 
         /// <summary>
         /// Event raised when an interaction is requested.
@@ -36,7 +35,6 @@ namespace KorroPlatformer.Level.Door
             _AnimConfig = animConfig;
             
             _OpenStateHash = Animator.StringToHash(_AnimConfig.OpenStateName);
-            _ClosedStateHash = Animator.StringToHash(_AnimConfig.ClosedStateName);
         }
 
         void IView<DoorModel>.Initialize(DoorModel model) => _Model = model;

@@ -11,12 +11,12 @@ namespace KorroPlatformer.Events
         /// <summary>
         /// The current health value.
         /// </summary>
-        public int CurrentHealth;
+        public readonly int CurrentHealth;
 
         /// <summary>
         /// The maximum health value.
         /// </summary>
-        public int MaxHealth;
+        public readonly int MaxHealth;
 
         public HealthChangedPayload(int currentHealth, int maxHealth)
         {

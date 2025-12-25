@@ -90,7 +90,7 @@ namespace KorroPlatformer.Character
         private PlayerStateMachine CreateStateMachine(PlayerModel model)
         {
             return new PlayerStateMachine(
-                new IdleState(_InputProvider, _View, _View),
+                new IdleState(_InputProvider, _View, _View, _HitEvent),
                 new WalkState(_InputProvider, _View, _View, _HitEvent),
                 new JumpState(_InputProvider, _View, _View, _HitEvent, _PlayerJumpEvent),
                 new HitState(model, _View, _View, _HealthChangedEvent, _PlayerDiedEvent, _AnimConfiguration.HitDuration),

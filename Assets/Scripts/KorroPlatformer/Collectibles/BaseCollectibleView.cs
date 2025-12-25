@@ -1,5 +1,4 @@
 using Common.Interaction;
-using Common.MVP;
 using UnityEngine;
 
 namespace KorroPlatformer.Collectibles

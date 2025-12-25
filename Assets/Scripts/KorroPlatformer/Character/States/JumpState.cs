@@ -8,41 +8,24 @@ namespace KorroPlatformer.Character.States
     /// <summary>
     /// State representing the player jumping or being in the air.
     /// </summary>
-    public class JumpState : IState
+    public class JumpState : PlayerBaseState
     {
-        private readonly IInputProvider _InputProvider;
-        private readonly IPlayerMovement _PlayerMovement;
-        private readonly IPlayerAnimator _PlayerAnimator;
-        private readonly Common.Events.IEventChannel<int> _HitEvent;
         private readonly Common.Events.IEventChannel _JumpEvent;
-        private PlayerStateMachine _StateMachine;
 
         public JumpState(
             IInputProvider inputProvider, 
             IPlayerMovement playerMovement,
             IPlayerAnimator playerAnimator,
             Common.Events.IEventChannel<int> hitEvent,
-            Common.Events.IEventChannel jumpEvent = null)
+            Common.Events.IEventChannel jumpEvent = null) : base(inputProvider, playerMovement, playerAnimator, hitEvent)
         {
-            _InputProvider = inputProvider;
-            _PlayerMovement = playerMovement;
-            _PlayerAnimator = playerAnimator;
-            _HitEvent = hitEvent;
             _JumpEvent = jumpEvent;
         }
 
-        /// <summary>
-        /// Initializes the state with the state machine.
-        /// </summary>
-        /// <param name="stateMachine">The state machine instance.</param>
-        public void Initialize(PlayerStateMachine stateMachine)
-        {
-            _StateMachine = stateMachine;
-        }
-
         /// <inheritdoc />
-        public void Enter()
+        public override void Enter()
         {
+            base.Enter();
             if (_PlayerMovement.IsGrounded)
                 _PlayerMovement.Jump();
                 
@@ -52,20 +35,10 @@ namespace KorroPlatformer.Character.States
             {
                 _JumpEvent.Raise();
             }
-
-            if (_HitEvent != null)
-                _HitEvent.Subscribe(OnDamageReceived);
         }
 
         /// <inheritdoc />
-        public void Exit()
-        {
-            if (_HitEvent != null)
-                _HitEvent.Unsubscribe(OnDamageReceived);
-        }
-
-        /// <inheritdoc />
-        public IState Update()
+        public override IState Update()
         {
             _PlayerMovement.MoveDirection = _InputProvider.MoveDirection;
 
@@ -75,12 +48,6 @@ namespace KorroPlatformer.Character.States
             }
             
             return null;
-        }
-
-        private void OnDamageReceived(int damage)
-        {
-             _StateMachine.HitState.Prepare(damage);
-             _StateMachine.SetState(_StateMachine.HitState);
         }
     }
 }
