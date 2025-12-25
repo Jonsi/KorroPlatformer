@@ -49,14 +49,14 @@ namespace KorroPlatformer.Level.Door
             }
         }
 
-        private void OnInteractionRequested()
+        private async void OnInteractionRequested()
         {
             if (Model.IsOpen) return;
 
             if (_InventoryService.HasItem(CollectibleType.Key))
             {
                 Model.IsOpen = true;
-                ((IDoorAnimator)View).PlayOpen();
+                await ((IDoorAnimator)View).PlayOpen();
                 _LevelCompleteEvent?.Raise();
             }
         }

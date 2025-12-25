@@ -12,11 +12,11 @@ namespace KorroPlatformer.Level.Door
         [Tooltip("The name of the Open state in the Animator.")]
         [field: SerializeField] public string OpenStateName { get; private set; } = "Open";
 
-        [Tooltip("The name of the Closed state in the Animator.")]
-        [field: SerializeField] public string ClosedStateName { get; private set; } = "Closed";
-
         [Header("Settings")]
         [Tooltip("Duration of the crossfade between states.")]
         [field: SerializeField] public float CrossFadeDuration { get; private set; } = 0.1f;
+
+        [Tooltip("Duration of the open animation.")]
+        [field: SerializeField] public float OpenDuration { get; private set; } = 1.0f;
     }
 }

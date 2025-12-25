@@ -60,11 +60,12 @@ namespace KorroPlatformer.Level.Door
         }
 
         /// <inheritdoc />
-        public void PlayOpen()
+        public async Awaitable PlayOpen()
         {
             if (_Animator != null)
             {
                 _Animator.CrossFade(_OpenStateHash, _AnimConfig.CrossFadeDuration);
+                await Awaitable.WaitForSecondsAsync(_AnimConfig.OpenDuration);
             }
         }
     }

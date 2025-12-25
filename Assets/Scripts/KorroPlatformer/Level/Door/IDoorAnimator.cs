@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace KorroPlatformer.Level.Door
 {
     /// <summary>
@@ -8,6 +10,7 @@ namespace KorroPlatformer.Level.Door
         /// <summary>
         /// Plays the open animation.
         /// </summary>
-        void PlayOpen();
+        /// <returns>Awaitable that completes when the animation finishes.</returns>
+        Awaitable PlayOpen();
     }
 }
