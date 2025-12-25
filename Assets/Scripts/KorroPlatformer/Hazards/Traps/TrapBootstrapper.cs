@@ -23,21 +23,13 @@ namespace KorroPlatformer.Hazards.Traps
         private void Start()
         {
             var model = new TrapModel(_Damage);
-
-            if (_View == null) _View = GetComponent<TrapView>();
             _View.Initialize(model);
-
             _Presenter = new TrapPresenter(_View, model, _TrapTriggeredEvent);
         }
 
         private void OnDestroy()
         {
             _Presenter?.Dispose();
-        }
-
-        private void Reset()
-        {
-            _View = GetComponent<TrapView>();
         }
     }
 }

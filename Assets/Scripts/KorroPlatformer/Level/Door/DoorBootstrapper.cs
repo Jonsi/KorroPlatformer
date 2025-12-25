@@ -26,21 +26,13 @@ namespace KorroPlatformer.Level.Door
         private void Start()
         {
             var model = new DoorModel();
-
-            if (_View == null) _View = GetComponent<DoorView>();
             _View.Initialize(model, _AnimationConfiguration);
-
             _Presenter = new DoorPresenter(_View, model, _InventoryService, _LevelCompleteEvent);
         }
 
         private void OnDestroy()
         {
             _Presenter?.Dispose();
-        }
-
-        private void Reset()
-        {
-            _View = GetComponent<DoorView>();
         }
     }
 }

@@ -65,9 +65,16 @@ namespace KorroPlatformer.Character.States
             string oldStateName = CurrentState?.GetType().Name ?? "None";
             string newStateName = newState.GetType().Name;
             
-            Debug.Log($"[PlayerStateMachine] Transitioning from {oldStateName} to {newStateName}");
+            LogTransition(oldStateName, newStateName);
 
             base.SetState(newState);
+        }
+
+        private void LogTransition(string oldStateName, string newStateName)
+        {
+            #if UNITY_EDITOR
+            Debug.Log($"[PlayerStateMachine] Transitioning from {oldStateName} to {newStateName}");
+            #endif
         }
     }
 }
