@@ -15,16 +15,19 @@ namespace KorroPlatformer.Hazards.Traps
         [SerializeField] private int _Damage = 1;
 
         [Header("Dependencies")]
-        [SerializeField, Tooltip("Event raised when trap triggers.")] 
+        [SerializeField, Tooltip("Event raised when trap triggers.")]
         private VoidEventChannel _TrapTriggeredEvent;
+
+        [SerializeField, Tooltip("Configuration for trap animations.")]
+        private TrapAnimationConfiguration _AnimationConfiguration;
 
         private TrapPresenter _Presenter;
 
         private void Start()
         {
             var model = new TrapModel(_Damage);
-            _View.Initialize(model);
-            _Presenter = new TrapPresenter(_View, model, _TrapTriggeredEvent);
+            _View.Initialize(model, _AnimationConfiguration);
+            _Presenter = new TrapPresenter(_View, model, _TrapTriggeredEvent, _AnimationConfiguration);
         }
 
         private void OnDestroy()

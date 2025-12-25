@@ -1,5 +1,6 @@
 using Common.Events;
 using Common.MVP;
+using UnityEngine;
 
 namespace KorroPlatformer.Hazards.Traps
 {
@@ -9,6 +10,7 @@ namespace KorroPlatformer.Hazards.Traps
     public class TrapPresenter : BasePresenter<TrapView, TrapModel>
     {
         private readonly IEventChannel _TrapTriggeredEvent;
+        private readonly TrapAnimationConfiguration _Config;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TrapPresenter"/> class.
@@ -16,10 +18,12 @@ namespace KorroPlatformer.Hazards.Traps
         /// <param name="view">The view.</param>
         /// <param name="model">The model.</param>
         /// <param name="trapTriggeredEvent">The event triggered by the trap.</param>
-        public TrapPresenter(TrapView view, TrapModel model, IEventChannel trapTriggeredEvent) 
+        /// <param name="config">The animation configuration.</param>
+        public TrapPresenter(TrapView view, TrapModel model, IEventChannel trapTriggeredEvent, TrapAnimationConfiguration config)
             : base(view, model)
         {
             _TrapTriggeredEvent = trapTriggeredEvent;
+            _Config = config;
             View.OnTrapTriggered += HandleTrapTriggered;
         }
 
@@ -31,10 +35,30 @@ namespace KorroPlatformer.Hazards.Traps
 
         private void HandleTrapTriggered()
         {
+            _ = HandleTrapTriggeredAsync();
+        }
+
+        private async Awaitable HandleTrapTriggeredAsync()
+        {
+            if (Model.IsActive) return;
+
+            Model.IsActive = true;
+
+            // Raise event for damage
             if (_TrapTriggeredEvent != null)
             {
                 _TrapTriggeredEvent.Raise();
             }
+
+            // Play close animation
+            View.PlayClose();
+
+            // Wait before opening
+            await Awaitable.WaitForSecondsAsync(_Config.StayClosedDuration);
+
+            // Play open animation
+            View.PlayOpen();
+            Model.IsActive = false;
         }
     }
 }

@@ -12,6 +12,11 @@ namespace KorroPlatformer.Hazards.Traps
         /// </summary>
         public int Damage { get; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether the trap is currently active/closed.
+        /// </summary>
+        public bool IsActive { get; set; }
+
         public TrapModel(int damage)
         {
             Damage = damage;
