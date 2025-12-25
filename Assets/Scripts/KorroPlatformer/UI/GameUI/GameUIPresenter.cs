@@ -115,7 +115,7 @@ namespace KorroPlatformer.UI.GameUI
         
         private void HandleGameEnd()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         private async Awaitable HandleBackToMenuRequesteAsync()

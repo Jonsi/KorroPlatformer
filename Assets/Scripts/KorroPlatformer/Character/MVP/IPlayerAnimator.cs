@@ -24,5 +24,10 @@ namespace KorroPlatformer.Character.MVP
         /// Plays the hit/damage animation.
         /// </summary>
         void PlayHit();
+
+        /// <summary>
+        /// Plays the death animation.
+        /// </summary>
+        void PlayDeath();
     }
 }

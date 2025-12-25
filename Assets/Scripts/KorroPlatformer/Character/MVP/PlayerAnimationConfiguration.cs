@@ -20,6 +20,9 @@ namespace KorroPlatformer.Character.MVP
         [field: SerializeField, Tooltip("Name of the hit state in the Animator.")]
         public string HitStateName { get; private set; } = "Hit";
 
+        [field: SerializeField, Tooltip("Name of the death state in the Animator.")]
+        public string DeathStateName { get; private set; } = "Death";
+
         [field: SerializeField, Tooltip("Duration of the cross-fade between animations.")]
         public float CrossFadeDuration { get; private set; } = 0.1f;
 

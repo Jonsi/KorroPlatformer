@@ -28,6 +28,7 @@ namespace KorroPlatformer.Character.MVP
         private int _WalkStateHash;
         private int _JumpStateHash;
         private int _HitStateHash;
+        private int _DeathStateHash;
 
         /// <inheritdoc />
         public bool IsGrounded => _CharacterController.isGrounded;
@@ -49,6 +50,7 @@ namespace KorroPlatformer.Character.MVP
             _WalkStateHash = Animator.StringToHash(_AnimConfig.WalkStateName);
             _JumpStateHash = Animator.StringToHash(_AnimConfig.JumpStateName);
             _HitStateHash = Animator.StringToHash(_AnimConfig.HitStateName);
+            _DeathStateHash = Animator.StringToHash(_AnimConfig.DeathStateName);
         }
 
         void IView<PlayerModel>.Initialize(PlayerModel model)
@@ -80,6 +82,8 @@ namespace KorroPlatformer.Character.MVP
         public void PlayJump() => _Animator.CrossFade(_JumpStateHash, _AnimConfig.CrossFadeDuration);
         /// <inheritdoc />
         public void PlayHit() => _Animator.CrossFade(_HitStateHash, _AnimConfig.CrossFadeDuration);
+        /// <inheritdoc />
+        public void PlayDeath() => _Animator.CrossFade(_DeathStateHash, _AnimConfig.CrossFadeDuration);
 
         /// <inheritdoc />
         public void TakeDamage(int damage)

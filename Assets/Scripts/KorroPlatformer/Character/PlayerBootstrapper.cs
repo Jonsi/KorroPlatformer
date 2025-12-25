@@ -94,7 +94,7 @@ namespace KorroPlatformer.Character
                 new WalkState(_InputProvider, _View, _View, _HitEvent),
                 new JumpState(_InputProvider, _View, _View, _HitEvent, _PlayerJumpEvent),
                 new HitState(model, _View, _View, _HealthChangedEvent, _PlayerDiedEvent, _AnimConfiguration.HitDuration),
-                new DeathState()
+                new DeathState(_View)
             );
         }
 
