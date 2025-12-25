@@ -6,6 +6,9 @@ using UnityEngine;
 
 namespace KorroPlatformer.Character.States
 {
+    /// <summary>
+    /// State representing the player walking.
+    /// </summary>
     public class WalkState : IState
     {
         private readonly IInputProvider _InputProvider;
@@ -27,11 +30,16 @@ namespace KorroPlatformer.Character.States
             _HitEvent = hitEvent;
         }
 
+        /// <summary>
+        /// Initializes the state with the state machine.
+        /// </summary>
+        /// <param name="stateMachine">The state machine instance.</param>
         public void Initialize(PlayerStateMachine stateMachine)
         {
             _StateMachine = stateMachine;
         }
 
+        /// <inheritdoc />
         public void Enter()
         {
             _JumpRequested = false;
@@ -44,6 +52,7 @@ namespace KorroPlatformer.Character.States
             }
         }
 
+        /// <inheritdoc />
         public void Exit()
         {
             _InputProvider.JumpPerformed -= OnJump;
@@ -57,6 +66,7 @@ namespace KorroPlatformer.Character.States
             }
         }
 
+        /// <inheritdoc />
         public IState Update()
         {
             _PlayerMovement.MoveDirection = _InputProvider.MoveDirection;

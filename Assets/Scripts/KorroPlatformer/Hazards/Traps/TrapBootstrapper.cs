@@ -3,15 +3,20 @@ using UnityEngine;
 
 namespace KorroPlatformer.Hazards.Traps
 {
+    /// <summary>
+    /// Bootstrapper for traps.
+    /// </summary>
     public class TrapBootstrapper : MonoBehaviour
     {
-        [SerializeField] private TrapView _View;
+        [SerializeField, Tooltip("Reference to the Trap View.")]
+        private TrapView _View;
 
         [Tooltip("The amount of damage this trap inflicts.")]
         [SerializeField] private int _Damage = 1;
 
         [Header("Dependencies")]
-        [SerializeField] private VoidEventChannel _TrapTriggeredEvent;
+        [SerializeField, Tooltip("Event raised when trap triggers.")] 
+        private VoidEventChannel _TrapTriggeredEvent;
 
         private TrapPresenter _Presenter;
 

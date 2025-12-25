@@ -13,6 +13,9 @@ namespace Common.Events
     {
         private readonly Dictionary<object, Action> _Subscriptions = new();
 
+        /// <summary>
+        /// Raises the event to all subscribers.
+        /// </summary>
         public void Raise()
         {
             var callbacks = _Subscriptions.Values.ToArray();
@@ -22,6 +25,10 @@ namespace Common.Events
             }
         }
 
+        /// <summary>
+        /// Subscribes a handler to the event.
+        /// </summary>
+        /// <param name="handler">The action to invoke when the event is raised.</param>
         public void Subscribe(Action handler)
         {
             if (handler == null)
@@ -33,6 +40,10 @@ namespace Common.Events
             _Subscriptions[owner] = handler;
         }
 
+        /// <summary>
+        /// Unsubscribes a handler from the event.
+        /// </summary>
+        /// <param name="handler">The action to remove.</param>
         public void Unsubscribe(Action handler)
         {
             if (handler == null)
@@ -44,6 +55,9 @@ namespace Common.Events
             _Subscriptions.Remove(owner);
         }
 
+        /// <summary>
+        /// Unsubscribes all handlers from the event.
+        /// </summary>
         public void UnsubscribeAll()
         {
             _Subscriptions.Clear();

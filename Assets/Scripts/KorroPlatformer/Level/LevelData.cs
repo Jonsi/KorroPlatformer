@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace KorroPlatformer.Level
 {
+    /// <summary>
+    /// Represents data for a game level.
+    /// </summary>
     [Serializable]
     public class LevelData
     {

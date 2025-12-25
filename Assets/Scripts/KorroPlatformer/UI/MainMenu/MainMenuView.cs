@@ -13,8 +13,12 @@ namespace KorroPlatformer.UI.MainMenu
     /// </summary>
     public class MainMenuView : MonoBehaviour, IView<MainMenuModel>
     {
-        [SerializeField] private Transform _LevelButtonContainer;
+        [SerializeField, Tooltip("Container transform where level buttons will be instantiated.")]
+        private Transform _LevelButtonContainer;
 
+        /// <summary>
+        /// Event triggered when a level is selected.
+        /// </summary>
         public event Action<int> OnLevelSelected;
         
         private readonly List<LevelItemPresenter> _ItemPresenters = new();
@@ -87,4 +91,3 @@ namespace KorroPlatformer.UI.MainMenu
         }
     }
 }
-

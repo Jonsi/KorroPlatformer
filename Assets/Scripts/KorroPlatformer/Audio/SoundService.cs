@@ -5,18 +5,33 @@ using UnityEngine;
 
 namespace KorroPlatformer.Audio
 {
+    /// <summary>
+    /// Service responsible for playing sound effects in response to game events.
+    /// </summary>
     public class SoundService : MonoBehaviour
     {
         [Header("Configuration")]
-        [SerializeField] private SoundConfiguration _Configuration;
-        [SerializeField] private AudioSource _AudioSource;
+        [SerializeField, Tooltip("Configuration asset for sound clips.")] 
+        private SoundConfiguration _Configuration;
+        
+        [SerializeField, Tooltip("AudioSource used to play the sounds.")] 
+        private AudioSource _AudioSource;
 
         [Header("Events")]
-        [SerializeField] private VoidEventChannel _LevelCompletedEvent;
-        [SerializeField] private VoidEventChannel _PlayerJumpEvent;
-        [SerializeField] private VoidEventChannel _PlayerDiedEvent;
-        [SerializeField] private IntEventChannel _PlayerHitEvent;
-        [SerializeField] private CollectibleCollectedEvent _CollectibleCollectedEvent;
+        [SerializeField, Tooltip("Event raised when a level is completed.")] 
+        private VoidEventChannel _LevelCompletedEvent;
+        
+        [SerializeField, Tooltip("Event raised when the player jumps.")] 
+        private VoidEventChannel _PlayerJumpEvent;
+        
+        [SerializeField, Tooltip("Event raised when the player dies.")] 
+        private VoidEventChannel _PlayerDiedEvent;
+        
+        [SerializeField, Tooltip("Event raised when the player is hit.")] 
+        private IntEventChannel _PlayerHitEvent;
+        
+        [SerializeField, Tooltip("Event raised when a collectible is collected.")] 
+        private CollectibleCollectedEvent _CollectibleCollectedEvent;
         
         private void OnEnable()
         {
@@ -56,4 +71,3 @@ namespace KorroPlatformer.Audio
         }
     }
 }
-

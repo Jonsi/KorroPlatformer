@@ -10,9 +10,7 @@ namespace KorroPlatformer.Collectibles
     /// </summary>
     public abstract class BaseCollectibleView : MonoBehaviour, IInteractable
     {
-        /// <summary>
-        /// Logic to execute when the collectible is interacted with.
-        /// </summary>
+        /// <inheritdoc />
         public abstract void Interact();
     }
 }

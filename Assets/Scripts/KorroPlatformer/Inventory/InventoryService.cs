@@ -12,10 +12,14 @@ namespace KorroPlatformer.Inventory
     [CreateAssetMenu(fileName = "InventoryService", menuName = "KorroPlatformer/Services/Inventory Service")]
     public class InventoryService : ScriptableObject
     {
-        [SerializeField] private CollectibleCollectedEvent _CollectibleCollectedEvent;
+        [SerializeField, Tooltip("Event channel to listen for collected items.")]
+        private CollectibleCollectedEvent _CollectibleCollectedEvent;
         
         private readonly Dictionary<CollectibleType, int> _Inventory = new();
 
+        /// <summary>
+        /// Gets the current number of coins.
+        /// </summary>
         public int Coins => _Inventory.GetValueOrDefault(CollectibleType.Coin, 0);
 
         private void OnEnable()
@@ -35,6 +39,11 @@ namespace KorroPlatformer.Inventory
             }
         }
 
+        /// <summary>
+        /// Checks if the inventory contains a specific item type.
+        /// </summary>
+        /// <param name="type">The type of item to check.</param>
+        /// <returns>True if the item is in the inventory, otherwise false.</returns>
         public bool HasItem(CollectibleType type)
         {
             return _Inventory.GetValueOrDefault(type, 0) > 0;

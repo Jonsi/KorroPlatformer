@@ -6,6 +6,9 @@ using UnityEngine;
 
 namespace KorroPlatformer.Character.States
 {
+    /// <summary>
+    /// State representing the player taking damage.
+    /// </summary>
     public class HitState : IState
     {
         private PlayerStateMachine _StateMachine;
@@ -35,28 +38,39 @@ namespace KorroPlatformer.Character.States
             _Duration = duration;
         }
 
+        /// <summary>
+        /// Initializes the state with the state machine.
+        /// </summary>
+        /// <param name="stateMachine">The state machine instance.</param>
         public void Initialize(PlayerStateMachine stateMachine)
         {
             _StateMachine = stateMachine;
         }
 
+        /// <summary>
+        /// Prepares the state with the damage to apply on entry.
+        /// </summary>
+        /// <param name="damage">The damage amount.</param>
         public void Prepare(int damage)
         {
             _PendingDamage = damage;
         }
 
+        /// <inheritdoc />
         public void Enter()
         {
             _ElapsedTime = 0f;
-            _PlayerMovement.MoveDirection = Vector2.zero; // Stop movement on hit
+            _PlayerMovement.MoveDirection = Vector2.zero; 
             _PlayerAnimator.PlayHit();
             ApplyDamage();
         }
 
+        /// <inheritdoc />
         public void Exit()
         {
         }
 
+        /// <inheritdoc />
         public IState Update()
         {
             _ElapsedTime += Time.deltaTime;

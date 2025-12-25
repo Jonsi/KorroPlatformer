@@ -9,9 +9,13 @@ namespace KorroPlatformer.UI.MainMenu
     /// </summary>
     public class MainMenuBootstrapper : MonoBehaviour
     {
-        [SerializeField] private MainMenuView _View;
+        [SerializeField, Tooltip("Reference to the Main Menu View.")]
+        private MainMenuView _View;
+
         [Tooltip("Configuration providing the list of available levels.")]
         [SerializeField] private LevelConfiguration _LevelConfiguration;
+
+        [Tooltip("Prefab used for displaying level items.")]
         [SerializeField] private LevelItemView _LevelItemPrefab;
 
         private MainMenuPresenter _Presenter;

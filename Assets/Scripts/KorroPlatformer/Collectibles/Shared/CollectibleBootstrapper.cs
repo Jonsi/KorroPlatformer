@@ -3,9 +3,13 @@ using UnityEngine;
 
 namespace KorroPlatformer.Collectibles.Shared
 {
+    /// <summary>
+    /// Bootstrapper for collectibles.
+    /// </summary>
     public class CollectibleBootstrapper : MonoBehaviour
     {
-        [SerializeField] private CollectibleView _View;
+        [SerializeField, Tooltip("Reference to the Collectible View.")]
+        private CollectibleView _View;
         
         [Tooltip("The type of collectible this object represents.")]
         [SerializeField] private CollectibleType _Type;
@@ -14,7 +18,8 @@ namespace KorroPlatformer.Collectibles.Shared
         [SerializeField] private int _Amount = 1;
         
         [Header("Dependencies")]
-        [SerializeField] private CollectibleCollectedEvent _CollectibleCollectedEvent;
+        [SerializeField, Tooltip("Event raised when collected.")] 
+        private CollectibleCollectedEvent _CollectibleCollectedEvent;
 
         private CollectiblePresenter _Presenter;
 
@@ -39,4 +44,3 @@ namespace KorroPlatformer.Collectibles.Shared
         }
     }
 }
-

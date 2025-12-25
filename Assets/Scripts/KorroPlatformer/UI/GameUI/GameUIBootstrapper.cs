@@ -10,16 +10,28 @@ namespace KorroPlatformer.UI.GameUI
     /// </summary>
     public class GameUIBootstrapper : MonoBehaviour
     {
-        [SerializeField] private GameUIView _View;
+        [SerializeField, Tooltip("Reference to the Game UI View.")] 
+        private GameUIView _View;
+        
         [Header("Events")]
-        [SerializeField] private HealthChangedEvent _HealthChangedEvent;
-        [SerializeField] private CollectibleCollectedEvent _CollectibleEvent;
-        [SerializeField] private VoidEventChannel _PlayerDiedEvent;
-        [SerializeField] private VoidEventChannel _LevelCompleteEvent;
+        [SerializeField, Tooltip("Event raised when player health changes.")] 
+        private HealthChangedEvent _HealthChangedEvent;
+        
+        [SerializeField, Tooltip("Event raised when a collectible is collected.")] 
+        private CollectibleCollectedEvent _CollectibleEvent;
+        
+        [SerializeField, Tooltip("Event raised when the player dies.")] 
+        private VoidEventChannel _PlayerDiedEvent;
+        
+        [SerializeField, Tooltip("Event raised when the level is completed.")] 
+        private VoidEventChannel _LevelCompleteEvent;
         
         [Header("Configuration")]
-        [SerializeField] private LevelConfiguration _LevelConfiguration;
-        [SerializeField] private Character.MVP.PlayerConfiguration _PlayerConfiguration;
+        [SerializeField, Tooltip("Configuration for the current level.")] 
+        private LevelConfiguration _LevelConfiguration;
+        
+        [SerializeField, Tooltip("Configuration for player stats.")] 
+        private Character.MVP.PlayerConfiguration _PlayerConfiguration;
 
         private GameUIPresenter _Presenter;
 

@@ -2,6 +2,9 @@ using UnityEngine;
 
 namespace KorroPlatformer.Level.Door
 {
+    /// <summary>
+    /// Configuration for door animation states.
+    /// </summary>
     [CreateAssetMenu(fileName = "DoorAnimationConfiguration", menuName = "KorroPlatformer/Config/Door Animation Configuration")]
     public class DoorAnimationConfiguration : ScriptableObject
     {

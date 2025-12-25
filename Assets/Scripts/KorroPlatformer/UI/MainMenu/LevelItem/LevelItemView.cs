@@ -7,11 +7,20 @@ using UnityEngine.UI;
 
 namespace KorroPlatformer.UI.MainMenu.LevelItem
 {
+    /// <summary>
+    /// View for a single level item in the main menu list.
+    /// </summary>
     public class LevelItemView : MonoBehaviour, IView<LevelItemModel>
     {
-        [SerializeField] private TextMeshProUGUI _Text;
-        [SerializeField] private Button _Button;
+        [SerializeField, Tooltip("Text component to display the level name.")]
+        private TextMeshProUGUI _Text;
 
+        [SerializeField, Tooltip("Button component for selecting the level.")]
+        private Button _Button;
+
+        /// <summary>
+        /// Event triggered when the item is clicked.
+        /// </summary>
         public event Action OnClick;
 
         private void Awake()
@@ -22,6 +31,7 @@ namespace KorroPlatformer.UI.MainMenu.LevelItem
             }
         }
 
+        /// <inheritdoc />
         public void Initialize(LevelItemModel model)
         {
             if (_Text != null)
@@ -30,12 +40,14 @@ namespace KorroPlatformer.UI.MainMenu.LevelItem
             }
         }
 
+        /// <inheritdoc />
         public Awaitable Show()
         {
             gameObject.SetActive(true);
             return AwaitableUtility.Completed();
         }
 
+        /// <inheritdoc />
         public Awaitable Hide()
         {
             gameObject.SetActive(false);
@@ -51,4 +63,3 @@ namespace KorroPlatformer.UI.MainMenu.LevelItem
         }
     }
 }
-

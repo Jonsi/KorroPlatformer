@@ -10,16 +10,25 @@ namespace KorroPlatformer.UI.MainMenu
     /// </summary>
     public class MainMenuPresenter : BasePresenter<MainMenuView, MainMenuModel>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MainMenuPresenter"/> class.
+        /// </summary>
+        /// <param name="view">The main menu view.</param>
+        /// <param name="model">The main menu model.</param>
         public MainMenuPresenter(MainMenuView view, MainMenuModel model) 
             : base(view, model)
         {
         }
 
+        /// <summary>
+        /// Initializes the presenter subscriptions.
+        /// </summary>
         public void Initialize()
         {
             View.OnLevelSelected += HandleLevelSelected;
         }
 
+        /// <inheritdoc />
         public override void Dispose()
         {
             if (View != null)

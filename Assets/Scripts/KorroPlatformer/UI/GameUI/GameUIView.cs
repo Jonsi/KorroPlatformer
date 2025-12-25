@@ -4,7 +4,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-
 namespace KorroPlatformer.UI.GameUI
 {
     /// <summary>
@@ -12,13 +11,27 @@ namespace KorroPlatformer.UI.GameUI
     /// </summary>
     public class GameUIView : MonoBehaviour, IView<GameUIModel>
     {
-        [SerializeField] private TextMeshProUGUI _HealthText;
-        [SerializeField] private TextMeshProUGUI _CoinText;
-        [SerializeField] private Image _KeyIcon;
-        [SerializeField] private Color _KeyActiveColor = Color.white;
-        [SerializeField] private Color _KeyInactiveColor = new Color(1, 1, 1, 0.3f);
-        [SerializeField] private Button _BackToMenuButton;
+        [SerializeField, Tooltip("Text component for displaying health.")]
+        private TextMeshProUGUI _HealthText;
 
+        [SerializeField, Tooltip("Text component for displaying coin count.")]
+        private TextMeshProUGUI _CoinText;
+
+        [SerializeField, Tooltip("Image component for the key icon.")]
+        private Image _KeyIcon;
+
+        [SerializeField, Tooltip("Color of the key icon when collected.")]
+        private Color _KeyActiveColor = Color.white;
+
+        [SerializeField, Tooltip("Color of the key icon when not collected.")]
+        private Color _KeyInactiveColor = new Color(1, 1, 1, 0.3f);
+
+        [SerializeField, Tooltip("Button to return to the main menu.")]
+        private Button _BackToMenuButton;
+
+        /// <summary>
+        /// Event triggered when the back to menu button is clicked.
+        /// </summary>
         public event System.Action OnBackToMenuRequested;
 
         /// <inheritdoc />
@@ -86,7 +99,5 @@ namespace KorroPlatformer.UI.GameUI
                 _KeyIcon.color = hasKey ? _KeyActiveColor : _KeyInactiveColor;
             }
         }
-
     }
 }
-

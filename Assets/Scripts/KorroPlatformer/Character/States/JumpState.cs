@@ -5,6 +5,9 @@ using UnityEngine;
 
 namespace KorroPlatformer.Character.States
 {
+    /// <summary>
+    /// State representing the player jumping or being in the air.
+    /// </summary>
     public class JumpState : IState
     {
         private readonly IInputProvider _InputProvider;
@@ -28,11 +31,16 @@ namespace KorroPlatformer.Character.States
             _JumpEvent = jumpEvent;
         }
 
+        /// <summary>
+        /// Initializes the state with the state machine.
+        /// </summary>
+        /// <param name="stateMachine">The state machine instance.</param>
         public void Initialize(PlayerStateMachine stateMachine)
         {
             _StateMachine = stateMachine;
         }
 
+        /// <inheritdoc />
         public void Enter()
         {
             if (_PlayerMovement.IsGrounded)
@@ -49,12 +57,14 @@ namespace KorroPlatformer.Character.States
                 _HitEvent.Subscribe(OnDamageReceived);
         }
 
+        /// <inheritdoc />
         public void Exit()
         {
             if (_HitEvent != null)
                 _HitEvent.Unsubscribe(OnDamageReceived);
         }
 
+        /// <inheritdoc />
         public IState Update()
         {
             _PlayerMovement.MoveDirection = _InputProvider.MoveDirection;

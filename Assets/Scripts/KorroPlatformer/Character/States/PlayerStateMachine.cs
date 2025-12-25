@@ -57,6 +57,7 @@ namespace KorroPlatformer.Character.States
             // DeathState doesn't need references to other states to transition
         }
 
+        /// <inheritdoc />
         public override void SetState(IState newState)
         {
             if (newState == null || CurrentState == newState)

@@ -5,14 +5,27 @@ using KorroPlatformer.Inventory;
 
 namespace KorroPlatformer.Level.Door
 {
+    /// <summary>
+    /// Presenter for the Door, managing interaction logic and events.
+    /// </summary>
     public class DoorPresenter : IPresenter<DoorView, DoorModel>
     {
         private readonly InventoryService _InventoryService;
         private readonly IEventChannel _LevelCompleteEvent;
 
+        /// <inheritdoc />
         public DoorView View { get; }
+        
+        /// <inheritdoc />
         public DoorModel Model { get; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DoorPresenter"/> class.
+        /// </summary>
+        /// <param name="view">The door view.</param>
+        /// <param name="model">The door model.</param>
+        /// <param name="inventoryService">The inventory service.</param>
+        /// <param name="levelCompleteEvent">The event to raise when level is complete.</param>
         public DoorPresenter(
             DoorView view, 
             DoorModel model, 
@@ -27,6 +40,7 @@ namespace KorroPlatformer.Level.Door
             View.InteractionRequested += OnInteractionRequested;
         }
 
+        /// <inheritdoc />
         public void Dispose()
         {
             if (View != null)
@@ -48,4 +62,3 @@ namespace KorroPlatformer.Level.Door
         }
     }
 }
-
