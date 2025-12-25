@@ -17,6 +17,9 @@ namespace KorroPlatformer.UI.GameUI
         [SerializeField] private Image _KeyIcon;
         [SerializeField] private Color _KeyActiveColor = Color.white;
         [SerializeField] private Color _KeyInactiveColor = new Color(1, 1, 1, 0.3f);
+        [SerializeField] private Button _BackToMenuButton;
+
+        public event System.Action OnBackToMenuRequested;
 
         /// <inheritdoc />
         public void Initialize(GameUIModel model)
@@ -24,6 +27,13 @@ namespace KorroPlatformer.UI.GameUI
             UpdateHealth(model.CurrentHealth, model.MaxHealth);
             UpdateCoinCount(model.CoinCount);
             UpdateKeyStatus(model.HasKey);
+
+            if (_BackToMenuButton != null)
+            {
+                _BackToMenuButton.gameObject.SetActive(true);
+                _BackToMenuButton.onClick.RemoveAllListeners();
+                _BackToMenuButton.onClick.AddListener(() => OnBackToMenuRequested?.Invoke());
+            }
         }
 
         /// <inheritdoc />
@@ -76,6 +86,7 @@ namespace KorroPlatformer.UI.GameUI
                 _KeyIcon.color = hasKey ? _KeyActiveColor : _KeyInactiveColor;
             }
         }
+
     }
 }
 

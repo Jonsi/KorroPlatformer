@@ -1,4 +1,6 @@
+using Common.Events;
 using KorroPlatformer.Events;
+using KorroPlatformer.Level;
 using UnityEngine;
 
 namespace KorroPlatformer.UI.GameUI
@@ -9,8 +11,14 @@ namespace KorroPlatformer.UI.GameUI
     public class GameUIBootstrapper : MonoBehaviour
     {
         [SerializeField] private GameUIView _View;
+        [Header("Events")]
         [SerializeField] private HealthChangedEvent _HealthChangedEvent;
         [SerializeField] private CollectibleCollectedEvent _CollectibleEvent;
+        [SerializeField] private VoidEventChannel _PlayerDiedEvent;
+        [SerializeField] private VoidEventChannel _LevelCompleteEvent;
+        
+        [Header("Configuration")]
+        [SerializeField] private LevelConfiguration _LevelConfiguration;
 
         private GameUIPresenter _Presenter;
 
@@ -18,15 +26,14 @@ namespace KorroPlatformer.UI.GameUI
         {
             var model = new GameUIModel();
             
-            // Initialize model with default values if needed, 
-            // though actual values will likely come from initial events or separate data source.
-            // For now, we assume 0/defaults until first event update or explicitly set.
-            
             _Presenter = new GameUIPresenter(
                 _View, 
                 model, 
                 _HealthChangedEvent, 
-                _CollectibleEvent);
+                _CollectibleEvent,
+                _PlayerDiedEvent,
+                _LevelCompleteEvent,
+                _LevelConfiguration);
             
             _View.Initialize(model);
         }
@@ -37,4 +44,3 @@ namespace KorroPlatformer.UI.GameUI
         }
     }
 }
-
