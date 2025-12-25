@@ -74,6 +74,13 @@ namespace KorroPlatformer.Character.MVP
             else
                 _VerticalVelocity += _Config.Gravity * Time.deltaTime;
 
+            Vector3 horizontalDirection = new Vector3(MoveDirection.x, 0f, MoveDirection.y);
+            if (horizontalDirection.sqrMagnitude > 0.01f)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(horizontalDirection);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, _Config.RotationSpeed * Time.deltaTime);
+            }
+
             Vector3 move = new Vector3(MoveDirection.x * _Config.MoveSpeed, _VerticalVelocity, MoveDirection.y * _Config.MoveSpeed);
             _CharacterController.Move(move * Time.deltaTime);
         }
