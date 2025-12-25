@@ -43,7 +43,7 @@ namespace KorroPlatformer.Character
                 _HealthChangedEvent.Raise(new HealthChangedPayload(model.CurrentHealth, model.MaxHealth));
             }
 
-            _View.Initialize(_Configuration, _AnimConfiguration, model);
+            _View.Initialize(_Configuration, _AnimConfiguration);
 
             PlayerStateMachine stateMachine = new PlayerStateMachine(
                 new IdleState(_InputProvider, _View, _View),

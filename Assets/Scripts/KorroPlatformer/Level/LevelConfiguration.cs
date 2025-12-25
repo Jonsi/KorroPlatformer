@@ -10,13 +10,9 @@ namespace KorroPlatformer.Level
     public class LevelConfiguration : ScriptableObject, ILevelProvider
     {
         [Tooltip("Name of the Main Menu scene.")]
-        [SerializeField] private string _MainMenuSceneName = "MainMenu";
+        [field: SerializeField] public string MainMenuSceneName { get; private set; } = "MainMenu";
 
         [Tooltip("List of available levels.")]
-        [SerializeField] private List<LevelData> _Levels = new();
-
-        public List<LevelData> Levels => _Levels;
-        public string MainMenuSceneName => _MainMenuSceneName;
+        [field: SerializeField] public List<LevelData> Levels { get; private set; } = new();
     }
 }
-

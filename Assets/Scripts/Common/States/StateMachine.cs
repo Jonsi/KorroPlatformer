@@ -7,7 +7,7 @@ namespace Common.States
     /// </summary>
     public abstract class StateMachine : IUpdatable
     {
-        public IState CurrentState { get; private set; }
+        protected IState CurrentState { get; private set; }
 
         /// <summary>
         /// Sets the current state to a new state instance.

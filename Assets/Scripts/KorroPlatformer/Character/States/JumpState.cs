@@ -10,16 +10,16 @@ namespace KorroPlatformer.Character.States
         private readonly IInputProvider _InputProvider;
         private readonly IPlayerMovement _PlayerMovement;
         private readonly IPlayerAnimator _PlayerAnimator;
-        private readonly Common.Events.IntEventChannel _HitEvent;
-        private readonly Common.Events.VoidEventChannel _JumpEvent;
+        private readonly Common.Events.IEventChannel<int> _HitEvent;
+        private readonly Common.Events.IEventChannel _JumpEvent;
         private PlayerStateMachine _StateMachine;
 
         public JumpState(
             IInputProvider inputProvider, 
             IPlayerMovement playerMovement,
             IPlayerAnimator playerAnimator,
-            Common.Events.IntEventChannel hitEvent,
-            Common.Events.VoidEventChannel jumpEvent = null)
+            Common.Events.IEventChannel<int> hitEvent,
+            Common.Events.IEventChannel jumpEvent = null)
         {
             _InputProvider = inputProvider;
             _PlayerMovement = playerMovement;

@@ -14,7 +14,6 @@ namespace KorroPlatformer.Character.MVP
 
         private PlayerConfiguration _Config;
         private PlayerAnimationConfiguration _AnimConfig;
-        private PlayerModel _Model;
         private float _VerticalVelocity;
 
         private int _IdleStateHash;
@@ -25,11 +24,10 @@ namespace KorroPlatformer.Character.MVP
         public bool IsGrounded => _CharacterController.isGrounded;
         public Vector2 MoveDirection { get; set; }
 
-        public void Initialize(PlayerConfiguration config, PlayerAnimationConfiguration animConfig, PlayerModel model)
+        public void Initialize(PlayerConfiguration config, PlayerAnimationConfiguration animConfig)
         {
             _Config = config;
             _AnimConfig = animConfig;
-            _Model = model;
 
             _IdleStateHash = Animator.StringToHash(_AnimConfig.IdleStateName);
             _WalkStateHash = Animator.StringToHash(_AnimConfig.WalkStateName);
@@ -37,7 +35,9 @@ namespace KorroPlatformer.Character.MVP
             _HitStateHash = Animator.StringToHash(_AnimConfig.HitStateName);
         }
 
-        void IView<PlayerModel>.Initialize(PlayerModel model) => _Model = model;
+        void IView<PlayerModel>.Initialize(PlayerModel model)
+        {
+        }
 
         public Awaitable Show()
         {

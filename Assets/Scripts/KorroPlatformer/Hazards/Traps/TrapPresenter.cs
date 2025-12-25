@@ -5,9 +5,9 @@ namespace KorroPlatformer.Hazards.Traps
 {
     public class TrapPresenter : BasePresenter<TrapView, TrapModel>
     {
-        private readonly VoidEventChannel _TrapTriggeredEvent;
+        private readonly IEventChannel _TrapTriggeredEvent;
 
-        public TrapPresenter(TrapView view, TrapModel model, VoidEventChannel trapTriggeredEvent) 
+        public TrapPresenter(TrapView view, TrapModel model, IEventChannel trapTriggeredEvent) 
             : base(view, model)
         {
             _TrapTriggeredEvent = trapTriggeredEvent;

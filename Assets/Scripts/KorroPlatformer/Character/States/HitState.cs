@@ -12,8 +12,8 @@ namespace KorroPlatformer.Character.States
         private readonly PlayerModel _Model;
         private readonly IPlayerMovement _PlayerMovement;
         private readonly IPlayerAnimator _PlayerAnimator;
-        private readonly HealthChangedEvent _HealthChangedEvent;
-        private readonly VoidEventChannel _PlayerDiedEvent;
+        private readonly IEventChannel<HealthChangedPayload> _HealthChangedEvent;
+        private readonly IEventChannel _PlayerDiedEvent;
         private readonly float _Duration;
         
         private float _ElapsedTime;
@@ -23,8 +23,8 @@ namespace KorroPlatformer.Character.States
             PlayerModel model,
             IPlayerMovement playerMovement,
             IPlayerAnimator playerAnimator,
-            HealthChangedEvent healthChangedEvent,
-            VoidEventChannel playerDiedEvent,
+            IEventChannel<HealthChangedPayload> healthChangedEvent,
+            IEventChannel playerDiedEvent,
             float duration)
         {
             _Model = model;

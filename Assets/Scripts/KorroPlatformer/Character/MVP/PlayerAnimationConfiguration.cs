@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace KorroPlatformer.Character.MVP
 {
-    [CreateAssetMenu(fileName = "PlayerAnimationConfiguration", menuName = "KorroPlatformer/Player Animation Configuration")]
+    [CreateAssetMenu(fileName = "PlayerAnimationConfiguration", menuName = "KorroPlatformer/Config/Player Animation Configuration")]
     public class PlayerAnimationConfiguration : ScriptableObject
     {
         [field: SerializeField] public string IdleStateName { get; private set; } = "Idle";

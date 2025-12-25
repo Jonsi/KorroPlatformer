@@ -55,27 +55,5 @@ namespace Common.Events
             var owner = handler.Target;
             _Subscriptions.Remove(owner);
         }
-
-        /// <summary>
-        /// Removes all handlers for the specified owner object.
-        /// </summary>
-        /// <param name="owner">Owner instance used as subscription key.</param>
-        public void UnsubscribeOwner(object owner)
-        {
-            if (owner == null)
-            {
-                return;
-            }
-
-            _Subscriptions.Remove(owner);
-        }
-
-        /// <summary>
-        /// Clears all subscriptions.
-        /// </summary>
-        public void UnsubscribeAll()
-        {
-            _Subscriptions.Clear();
-        }
     }
 }

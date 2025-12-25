@@ -14,10 +14,10 @@ namespace KorroPlatformer.UI.GameUI
     /// </summary>
     public class GameUIPresenter : BasePresenter<GameUIView, GameUIModel>
     {
-        private readonly HealthChangedEvent _HealthChangedEvent;
-        private readonly CollectibleCollectedEvent _CollectibleEvent;
-        private readonly VoidEventChannel _PlayerDiedEvent;
-        private readonly VoidEventChannel _LevelCompleteEvent;
+        private readonly IEventChannel<HealthChangedPayload> _HealthChangedEvent;
+        private readonly IEventChannel<CollectiblePayload> _CollectibleEvent;
+        private readonly IEventChannel _PlayerDiedEvent;
+        private readonly IEventChannel _LevelCompleteEvent;
         private readonly ILevelProvider _LevelProvider;
         private readonly Character.MVP.PlayerConfiguration _PlayerConfiguration;
 
@@ -27,10 +27,10 @@ namespace KorroPlatformer.UI.GameUI
         public GameUIPresenter(
             GameUIView view,
             GameUIModel model,
-            HealthChangedEvent healthChangedEvent,
-            CollectibleCollectedEvent collectibleEvent,
-            VoidEventChannel playerDiedEvent,
-            VoidEventChannel levelCompleteEvent,
+            IEventChannel<HealthChangedPayload> healthChangedEvent,
+            IEventChannel<CollectiblePayload> collectibleEvent,
+            IEventChannel playerDiedEvent,
+            IEventChannel levelCompleteEvent,
             ILevelProvider levelProvider,
             Character.MVP.PlayerConfiguration playerConfiguration)
             : base(view, model)

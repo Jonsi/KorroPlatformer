@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace KorroPlatformer.Character.MVP
 {
-    [CreateAssetMenu(fileName = "PlayerConfiguration", menuName = "KorroPlatformer/Player Configuration")]
+    [CreateAssetMenu(fileName = "PlayerConfiguration", menuName = "KorroPlatformer/Config/Player Configuration")]
     public class PlayerConfiguration : ScriptableObject
     {
         [field: SerializeField] public float MoveSpeed { get; private set; } = 5f;

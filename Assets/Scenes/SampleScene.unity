@@ -520,7 +520,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _Configuration: {fileID: 11400000, guid: feb5d1200dbc2d84db043927c88a8a2b, type: 2}
-  _AudioSource: {fileID: 0}
+  _AudioSource: {fileID: 242707732}
   _LevelCompletedEvent: {fileID: 11400000, guid: 1e6e02bd63b52b0428049a93d2fdbffe, type: 2}
   _PlayerJumpEvent: {fileID: 11400000, guid: d15c21835f4c13b45b4fb63b022e9c27, type: 2}
   _PlayerDiedEvent: {fileID: 11400000, guid: 11f44b713b7e1e441a745d13c46e8497, type: 2}

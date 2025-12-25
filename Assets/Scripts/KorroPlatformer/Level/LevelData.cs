@@ -7,8 +7,6 @@ namespace KorroPlatformer.Level
     public class LevelData
     {
         [Tooltip("The name of the scene to load.")]
-        [SerializeField] private string _SceneName;
-        public string SceneName => _SceneName;
+        [field: SerializeField] public string SceneName { get; private set; }
     }
 }
-

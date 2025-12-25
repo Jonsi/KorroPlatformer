@@ -11,7 +11,7 @@ namespace KorroPlatformer.Character.States
         private readonly IInputProvider _InputProvider;
         private readonly IPlayerMovement _PlayerMovement;
         private readonly IPlayerAnimator _PlayerAnimator;
-        private readonly IntEventChannel _HitEvent;
+        private readonly IEventChannel<int> _HitEvent;
         private PlayerStateMachine _StateMachine;
         private bool _JumpRequested;
 
@@ -19,7 +19,7 @@ namespace KorroPlatformer.Character.States
             IInputProvider inputProvider, 
             IPlayerMovement playerMovement,
             IPlayerAnimator playerAnimator,
-            IntEventChannel hitEvent)
+            IEventChannel<int> hitEvent)
         {
             _InputProvider = inputProvider;
             _PlayerMovement = playerMovement;

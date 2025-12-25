@@ -9,7 +9,7 @@ namespace KorroPlatformer.Inventory
     /// Service that manages the player's inventory (coins, keys, etc.).
     /// Listens to collection events and updates its internal state.
     /// </summary>
-    [CreateAssetMenu(fileName = "InventoryService", menuName = "KorroPlatformer/Systems/InventoryService")]
+    [CreateAssetMenu(fileName = "InventoryService", menuName = "KorroPlatformer/Services/Inventory Service")]
     public class InventoryService : ScriptableObject
     {
         [SerializeField] private CollectibleCollectedEvent _CollectibleCollectedEvent;

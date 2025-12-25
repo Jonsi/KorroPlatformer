@@ -8,7 +8,7 @@ namespace KorroPlatformer.Level.Door
     public class DoorPresenter : IPresenter<DoorView, DoorModel>
     {
         private readonly InventoryService _InventoryService;
-        private readonly VoidEventChannel _LevelCompleteEvent;
+        private readonly IEventChannel _LevelCompleteEvent;
 
         public DoorView View { get; }
         public DoorModel Model { get; }
@@ -17,7 +17,7 @@ namespace KorroPlatformer.Level.Door
             DoorView view, 
             DoorModel model, 
             InventoryService inventoryService,
-            VoidEventChannel levelCompleteEvent)
+            IEventChannel levelCompleteEvent)
         {
             View = view;
             Model = model;

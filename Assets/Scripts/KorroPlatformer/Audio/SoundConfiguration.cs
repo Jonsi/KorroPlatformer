@@ -3,20 +3,20 @@ using KorroPlatformer.Collectibles;
 
 namespace KorroPlatformer.Audio
 {
-    [CreateAssetMenu(fileName = "SoundConfiguration", menuName = "KorroPlatformer/Audio/Sound Configuration")]
+    [CreateAssetMenu(fileName = "SoundConfiguration", menuName = "KorroPlatformer/Config/Sound Configuration")]
     public class SoundConfiguration : ScriptableObject
     {
         [Header("Level")]
-        public AudioClip LevelComplete;
+        [field: SerializeField] public AudioClip LevelComplete { get; private set; }
 
         [Header("Player")]
-        public AudioClip PlayerJump;
-        public AudioClip PlayerHit;
-        public AudioClip PlayerDeath;
+        [field: SerializeField] public AudioClip PlayerJump { get; private set; }
+        [field: SerializeField] public AudioClip PlayerHit { get; private set; }
+        [field: SerializeField] public AudioClip PlayerDeath { get; private set; }
 
         [Header("Collectibles")]
-        public AudioClip CollectCoin;
-        public AudioClip CollectKey;
+        [field: SerializeField] public AudioClip CollectCoin { get; private set; }
+        [field: SerializeField] public AudioClip CollectKey { get; private set; }
 
         public AudioClip GetCollectibleSound(CollectibleType type)
         {
@@ -29,4 +29,3 @@ namespace KorroPlatformer.Audio
         }
     }
 }
-

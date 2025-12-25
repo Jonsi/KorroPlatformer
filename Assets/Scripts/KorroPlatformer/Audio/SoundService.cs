@@ -17,19 +17,7 @@ namespace KorroPlatformer.Audio
         [SerializeField] private VoidEventChannel _PlayerDiedEvent;
         [SerializeField] private IntEventChannel _PlayerHitEvent;
         [SerializeField] private CollectibleCollectedEvent _CollectibleCollectedEvent;
-
-        private void Awake()
-        {
-            if (_AudioSource == null)
-            {
-                _AudioSource = GetComponent<AudioSource>();
-                if (_AudioSource == null)
-                {
-                    _AudioSource = gameObject.AddComponent<AudioSource>();
-                }
-            }
-        }
-
+        
         private void OnEnable()
         {
             if (_LevelCompletedEvent != null) _LevelCompletedEvent.Subscribe(OnLevelComplete);

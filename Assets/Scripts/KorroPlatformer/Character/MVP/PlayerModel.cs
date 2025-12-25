@@ -4,7 +4,7 @@ namespace KorroPlatformer.Character.MVP
 {
     public class PlayerModel : IModel
     {
-        public int MaxHealth { get; private set; }
+        public int MaxHealth { get; }
         public int CurrentHealth { get; private set; }
         public bool IsDead => CurrentHealth <= 0;
 
