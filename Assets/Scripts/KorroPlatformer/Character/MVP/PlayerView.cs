@@ -104,7 +104,7 @@ namespace KorroPlatformer.Character.MVP
         private void ApplyGravity()
         {
             if (IsGrounded && _VerticalVelocity < 0f)
-                _VerticalVelocity = -1f;
+                _VerticalVelocity = -_Config.StickToGroundForce;
             else
                 _VerticalVelocity += _Config.Gravity * Time.deltaTime;
         }

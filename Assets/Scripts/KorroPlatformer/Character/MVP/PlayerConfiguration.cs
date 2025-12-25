@@ -20,6 +20,9 @@ namespace KorroPlatformer.Character.MVP
         [field: SerializeField, Tooltip("Gravity force applied to the player.")]
         public float Gravity { get; private set; } = -20f;
 
+        [field: SerializeField, Tooltip("Downward force applied when grounded to stick to slopes/stairs.")]
+        public float StickToGroundForce { get; private set; } = 5f;
+
         [field: SerializeField, Tooltip("Maximum health of the player.")]
         public int MaxHealth { get; private set; } = 3;
     }
