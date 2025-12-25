@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be7689de00f6cce4783021a0157d460e, type: 3}
   m_Name: LevelConfiguration
   m_EditorClassIdentifier: 
-  _MainMenuSceneName: MainMenu
-  _Levels:
-  - _SceneName: SampleScene
-  - _SceneName: 1
+  <MainMenuSceneName>k__BackingField: MainMenu
+  <Levels>k__BackingField:
+  - <SceneName>k__BackingField: Level1
