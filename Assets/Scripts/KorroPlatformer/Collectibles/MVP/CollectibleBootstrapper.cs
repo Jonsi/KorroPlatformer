@@ -1,7 +1,7 @@
 using KorroPlatformer.Events;
 using UnityEngine;
 
-namespace KorroPlatformer.Collectibles.Shared
+namespace KorroPlatformer.Collectibles.MVP
 {
     /// <summary>
     /// Bootstrapper for collectibles.
@@ -26,21 +26,13 @@ namespace KorroPlatformer.Collectibles.Shared
         private void Start()
         {
             CollectibleModel model = new CollectibleModel(_Type, _Amount);
-
-            if (_View == null) _View = GetComponent<CollectibleView>();
             _View.Initialize(model);
-
             _Presenter = new CollectiblePresenter(_View, model, _CollectibleCollectedEvent);
         }
 
         private void OnDestroy()
         {
             _Presenter?.Dispose();
-        }
-
-        private void Reset()
-        {
-            _View = GetComponent<CollectibleView>();
         }
     }
 }

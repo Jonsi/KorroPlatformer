@@ -1,6 +1,6 @@
 using Common.MVP;
 
-namespace KorroPlatformer.Collectibles.Shared
+namespace KorroPlatformer.Collectibles.MVP
 {
     /// <summary>
     /// Model representing collectible data.

@@ -28,7 +28,6 @@ namespace KorroPlatformer.UI.MainMenu
         {
             if (model.LevelItemPrefab == null || _LevelButtonContainer == null)
             {
-                Debug.LogError("MainMenuView: LevelItemPrefab or Container is missing.");
                 return;
             }
             

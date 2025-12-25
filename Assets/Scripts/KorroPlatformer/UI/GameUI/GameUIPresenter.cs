@@ -1,3 +1,4 @@
+using System;
 using Common;
 using Common.Events;
 using Common.MVP;
@@ -115,7 +116,7 @@ namespace KorroPlatformer.UI.GameUI
         
         private void HandleGameEnd()
         {
-            // View.ShowBackToMenu();
+            throw new NotImplementedException();
         }
 
         private async Awaitable HandleBackToMenuRequesteAsync()

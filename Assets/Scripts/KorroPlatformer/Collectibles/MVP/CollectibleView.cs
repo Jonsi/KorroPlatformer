@@ -3,7 +3,7 @@ using Common;
 using Common.MVP;
 using UnityEngine;
 
-namespace KorroPlatformer.Collectibles.Shared
+namespace KorroPlatformer.Collectibles.MVP
 {
     /// <summary>
     /// View for a specific collectible instance.
@@ -14,8 +14,6 @@ namespace KorroPlatformer.Collectibles.Shared
         /// Event triggered when the collectible is interacted with.
         /// </summary>
         public event Action OnInteract;
-        
-        private CollectibleModel _Model;
 
         /// <summary>
         /// Initializes the view with the model.
@@ -23,7 +21,6 @@ namespace KorroPlatformer.Collectibles.Shared
         /// <param name="model">The collectible model.</param>
         public void Initialize(CollectibleModel model)
         {
-            _Model = model;
         }
 
         /// <inheritdoc />

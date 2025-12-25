@@ -54,7 +54,6 @@ namespace KorroPlatformer.Character.States
             WalkState.Initialize(this);
             JumpState.Initialize(this);
             HitState.Initialize(this);
-            // DeathState doesn't need references to other states to transition
         }
 
         /// <inheritdoc />

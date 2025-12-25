@@ -14,6 +14,8 @@ namespace KorroPlatformer.UI.MainMenu
 
         [Tooltip("Configuration providing the list of available levels.")]
         [SerializeField] private LevelConfiguration _LevelConfiguration;
+        
+        private ILevelProvider LevelProvider => _LevelConfiguration;
 
         [Tooltip("Prefab used for displaying level items.")]
         [SerializeField] private LevelItemView _LevelItemPrefab;
@@ -25,24 +27,17 @@ namespace KorroPlatformer.UI.MainMenu
         {
             if (_View == null)
             {
-                Debug.LogError("MainMenuBootstrapper: View is missing.");
                 return;
             }
 
-            if (_LevelConfiguration == null)
+            if (LevelProvider == null)
             {
-                Debug.LogError("MainMenuBootstrapper: LevelConfiguration is missing.");
                 return;
             }
             
-            // Pass the LevelData list and Prefab to the model
-            _Model = new MainMenuModel(_LevelConfiguration.Levels, _LevelItemPrefab);
+            _Model = new MainMenuModel(LevelProvider.Levels, _LevelItemPrefab);
             _Presenter = new MainMenuPresenter(_View, _Model);
-            
-            // Initialize View with Model data
             _View.Initialize(_Model);
-            
-            // Initialize Presenter (subscriptions)
             _Presenter.Initialize();
         }
 

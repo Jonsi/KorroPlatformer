@@ -69,14 +69,5 @@ namespace KorroPlatformer.Level.Door
                 _Animator.CrossFade(_OpenStateHash, _AnimConfig.CrossFadeDuration);
             }
         }
-
-        /// <inheritdoc />
-        public void PlayClosed()
-        {
-            if (_Animator != null)
-            {
-                _Animator.CrossFade(_ClosedStateHash, _AnimConfig.CrossFadeDuration);
-            }
-        }
     }
 }

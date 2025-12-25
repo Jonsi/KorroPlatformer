@@ -57,9 +57,6 @@ namespace KorroPlatformer.Character.States
         {
             _InputProvider.JumpPerformed -= OnJump;
             
-            // Do NOT reset MoveDirection here, as it kills jump momentum.
-            // Resetting movement on Hit should be handled by the HitState/Transition logic if needed.
-            
             if (_HitEvent != null)
             {
                 _HitEvent.Unsubscribe(OnDamageReceived);

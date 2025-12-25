@@ -9,10 +9,5 @@ namespace KorroPlatformer.Level.Door
         /// Plays the open animation.
         /// </summary>
         void PlayOpen();
-
-        /// <summary>
-        /// Plays the closed animation.
-        /// </summary>
-        void PlayClosed();
     }
 }

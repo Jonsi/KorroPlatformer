@@ -87,7 +87,6 @@ namespace KorroPlatformer.Character.MVP
             if (_HitEvent != null)
             {
                 _HitEvent.Raise(damage);
-                Debug.Log("hit " + damage);
             }
         }
 

@@ -51,10 +51,7 @@ namespace KorroPlatformer.Inventory
 
         private void OnCollectibleCollected(CollectiblePayload payload)
         {
-            if (!_Inventory.ContainsKey(payload.Type))
-            {
-                _Inventory[payload.Type] = 0;
-            }
+            _Inventory.TryAdd(payload.Type, 0);
             _Inventory[payload.Type] += payload.Amount;
         }
     }

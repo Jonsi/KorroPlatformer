@@ -1,7 +1,7 @@
 using Common.MVP;
 using KorroPlatformer.Events;
 
-namespace KorroPlatformer.Collectibles.Shared
+namespace KorroPlatformer.Collectibles.MVP
 {
     /// <summary>
     /// Presenter for collectibles, handling interaction and firing events.

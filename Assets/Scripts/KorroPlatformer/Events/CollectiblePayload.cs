@@ -10,12 +10,12 @@ namespace KorroPlatformer.Events
         /// <summary>
         /// The type of collectible collected.
         /// </summary>
-        public CollectibleType Type;
+        public readonly CollectibleType Type;
 
         /// <summary>
         /// The amount collected.
         /// </summary>
-        public int Amount;
+        public readonly int Amount;
 
         public CollectiblePayload(CollectibleType type, int amount)
         {
