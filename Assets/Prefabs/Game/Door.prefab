@@ -98,7 +98,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.6805438, y: -0.00000011920929, z: 1.5831006}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.9281604, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7110355131147722968}
@@ -116,7 +116,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d4429c4f314e9c458c20aa05c66bccc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _View: {fileID: 0}
+  _View: {fileID: 56398562968655760}
   _LevelCompleteEvent: {fileID: 11400000, guid: 1e6e02bd63b52b0428049a93d2fdbffe, type: 2}
   _InventoryService: {fileID: 11400000, guid: 92fd730a4c020b347a11d10f14efd04b, type: 2}
   _AnimationConfiguration: {fileID: 11400000, guid: 7208570c03d6f484aafe309140623106, type: 2}
