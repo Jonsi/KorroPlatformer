@@ -29,10 +29,31 @@ namespace KorroPlatformer.UI.GameUI
         [SerializeField, Tooltip("Button to return to the main menu.")]
         private Button _BackToMenuButton;
 
+        [Header("Result Panel")]
+        [SerializeField, Tooltip("The result panel container.")]
+        private GameObject _ResultPanel;
+
+        [SerializeField, Tooltip("Text component for the result message.")]
+        private TextMeshProUGUI _ResultText;
+
+        [SerializeField, Tooltip("Button to retry the level.")]
+        private Button _RetryButton;
+
+        [SerializeField, Tooltip("Color for the result text when winning.")]
+        private Color _WinColor = Color.green;
+
+        [SerializeField, Tooltip("Color for the result text when losing.")]
+        private Color _LoseColor = Color.red;
+
         /// <summary>
         /// Event triggered when the back to menu button is clicked.
         /// </summary>
         public event System.Action OnBackToMenuRequested;
+
+        /// <summary>
+        /// Event triggered when the retry button is clicked.
+        /// </summary>
+        public event System.Action OnRetryRequested;
 
         /// <inheritdoc />
         public void Initialize(GameUIModel model)
@@ -46,6 +67,17 @@ namespace KorroPlatformer.UI.GameUI
                 _BackToMenuButton.gameObject.SetActive(true);
                 _BackToMenuButton.onClick.RemoveAllListeners();
                 _BackToMenuButton.onClick.AddListener(() => OnBackToMenuRequested?.Invoke());
+            }
+
+            if (_RetryButton != null)
+            {
+                _RetryButton.onClick.RemoveAllListeners();
+                _RetryButton.onClick.AddListener(() => OnRetryRequested?.Invoke());
+            }
+            
+            if (_ResultPanel != null)
+            {
+                _ResultPanel.SetActive(false);
             }
         }
 
@@ -97,6 +129,24 @@ namespace KorroPlatformer.UI.GameUI
             if (_KeyIcon != null)
             {
                 _KeyIcon.color = hasKey ? _KeyActiveColor : _KeyInactiveColor;
+            }
+        }
+
+        /// <summary>
+        /// Shows the result panel with the specified message.
+        /// </summary>
+        /// <param name="isWin">Whether the player won the level.</param>
+        public void ShowResult(bool isWin)
+        {
+            if (_ResultPanel != null)
+            {
+                _ResultPanel.SetActive(true);
+            }
+
+            if (_ResultText != null)
+            {
+                _ResultText.text = isWin ? "Level Complete!" : "Game Over";
+                _ResultText.color = isWin ? _WinColor : _LoseColor;
             }
         }
     }

@@ -18,7 +18,7 @@ namespace KorroPlatformer.UI.GameUI
         private readonly IEventChannel<CollectiblePayload> _CollectibleEvent;
         private readonly IEventChannel _PlayerDiedEvent;
         private readonly IEventChannel _LevelCompleteEvent;
-        private readonly ILevelProvider _LevelProvider;
+        private readonly ILevelFlowManager _LevelFlowManager;
         private readonly Character.MVP.PlayerConfiguration _PlayerConfiguration;
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace KorroPlatformer.UI.GameUI
             IEventChannel<CollectiblePayload> collectibleEvent,
             IEventChannel playerDiedEvent,
             IEventChannel levelCompleteEvent,
-            ILevelProvider levelProvider,
+            ILevelFlowManager levelFlowManager,
             Character.MVP.PlayerConfiguration playerConfiguration)
             : base(view, model)
         {
@@ -39,7 +39,7 @@ namespace KorroPlatformer.UI.GameUI
             _CollectibleEvent = collectibleEvent;
             _PlayerDiedEvent = playerDiedEvent;
             _LevelCompleteEvent = levelCompleteEvent;
-            _LevelProvider = levelProvider;
+            _LevelFlowManager = levelFlowManager;
             _PlayerConfiguration = playerConfiguration;
 
             InitializeModel();
@@ -48,6 +48,7 @@ namespace KorroPlatformer.UI.GameUI
             if (View != null)
             {
                 View.OnBackToMenuRequested += HandleBackToMenuRequested;
+                View.OnRetryRequested += HandleRetryRequested;
             }
         }
 
@@ -70,10 +71,10 @@ namespace KorroPlatformer.UI.GameUI
                 _CollectibleEvent.Subscribe(HandleCollectibleCollected);
                 
             if (_PlayerDiedEvent != null)
-                _PlayerDiedEvent.Subscribe(HandleGameEnd);
+                _PlayerDiedEvent.Subscribe(HandlePlayerDied);
 
             if (_LevelCompleteEvent != null)
-                _LevelCompleteEvent.Subscribe(HandleGameEnd);
+                _LevelCompleteEvent.Subscribe(HandleLevelComplete);
         }
 
         private void UnsubscribeFromEvents()
@@ -85,10 +86,10 @@ namespace KorroPlatformer.UI.GameUI
                 _CollectibleEvent.Unsubscribe(HandleCollectibleCollected);
                 
             if (_PlayerDiedEvent != null)
-                _PlayerDiedEvent.Unsubscribe(HandleGameEnd);
+                _PlayerDiedEvent.Unsubscribe(HandlePlayerDied);
 
             if (_LevelCompleteEvent != null)
-                _LevelCompleteEvent.Unsubscribe(HandleGameEnd);
+                _LevelCompleteEvent.Unsubscribe(HandleLevelComplete);
         }
 
         private void HandleHealthChanged(HealthChangedPayload payload)
@@ -113,17 +114,24 @@ namespace KorroPlatformer.UI.GameUI
             }
         }
         
-        private void HandleGameEnd()
+        private void HandleLevelComplete()
         {
-            //throw new NotImplementedException();
+            View.ShowResult(true);
         }
 
-        private async Awaitable HandleBackToMenuRequesteAsync()
+        private void HandlePlayerDied()
         {
-            if (_LevelProvider != null && !string.IsNullOrEmpty(_LevelProvider.MainMenuSceneName))
-            {
-                await SceneManager.LoadSceneAsync(_LevelProvider.MainMenuSceneName);
-            }
+            View.ShowResult(false);
+        }
+
+        private void HandleBackToMenuRequested()
+        {
+            _ = _LevelFlowManager.GoToMainMenu();
+        }
+
+        private void HandleRetryRequested()
+        {
+            _ = _LevelFlowManager.RetryLevel();
         }
 
         /// <inheritdoc />
@@ -133,12 +141,8 @@ namespace KorroPlatformer.UI.GameUI
             if (View != null)
             {
                 View.OnBackToMenuRequested -= HandleBackToMenuRequested;
+                View.OnRetryRequested -= HandleRetryRequested;
             }
-        }
-
-        private void HandleBackToMenuRequested()
-        {
-            _ = HandleBackToMenuRequesteAsync();
         }
     }
 }

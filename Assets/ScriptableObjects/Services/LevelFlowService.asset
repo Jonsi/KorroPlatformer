@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 833af70995a329a44978e737bb2546b1, type: 3}
+  m_Name: LevelFlowService
+  m_EditorClassIdentifier: 
+  _LevelConfiguration: {fileID: 11400000, guid: 93ffea7d5383dd74e8b7e2d86d26543c, type: 2}
+  _PlayerDiedEvent: {fileID: 11400000, guid: 11f44b713b7e1e441a745d13c46e8497, type: 2}
+  _LevelCompleteEvent: {fileID: 11400000, guid: 1e6e02bd63b52b0428049a93d2fdbffe, type: 2}

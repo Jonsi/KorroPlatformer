@@ -33,12 +33,21 @@ namespace KorroPlatformer.UI.GameUI
         [SerializeField, Tooltip("Configuration for player stats.")] 
         private Character.MVP.PlayerConfiguration _PlayerConfiguration;
 
+        [Header("Systems")]
+        [SerializeField, Tooltip("Manager for level flow logic.")]
+        private LevelFlowManager _LevelFlowManager;
+
         private GameUIPresenter _Presenter;
 
         private void Awake()
         {
             var model = new GameUIModel();
             
+            if (_LevelFlowManager != null)
+            {
+                _LevelFlowManager.Initialize();
+            }
+
             _Presenter = new GameUIPresenter(
                 _View, 
                 model, 
@@ -46,7 +55,7 @@ namespace KorroPlatformer.UI.GameUI
                 _CollectibleEvent,
                 _PlayerDiedEvent,
                 _LevelCompleteEvent,
-                _LevelConfiguration,
+                _LevelFlowManager,
                 _PlayerConfiguration);
             
             _View.Initialize(model);
@@ -55,6 +64,10 @@ namespace KorroPlatformer.UI.GameUI
         private void OnDestroy()
         {
             _Presenter?.Dispose();
+            if (_LevelFlowManager != null)
+            {
+                _LevelFlowManager.Cleanup();
+            }
         }
     }
 }
